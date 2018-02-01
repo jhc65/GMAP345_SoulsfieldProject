@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MushController : MonoBehaviour {
+public class MushController : MonoBehaviour
+{
 
     private Animator anim;
-    public int health= 3;
+    public int health = 3;
 
     [HideInInspector]
     public Vector3 spawnPos;
-    [HideInInspector]
+
     public AIManager aiManager;
 
     private Vector3 currentTarget;
-    
+
 
     void Awake()
     {
@@ -44,13 +45,13 @@ public class MushController : MonoBehaviour {
     }
 
 
-    public void DisableMush ()
+    public void DisableMush()
     {
         aiManager.inactivePool.Add(gameObject);
 
         gameObject.SetActive(false);
     }
-    
 
-   
+
+
 }
