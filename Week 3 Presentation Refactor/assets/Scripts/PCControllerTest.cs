@@ -8,6 +8,8 @@ public class PCControllerTest : MonoBehaviour {
 
     private GameObject currentGround;
 
+    private Animator anim;
+
     [SerializeField]
     private float walkableAngle = 60f;
 
@@ -26,13 +28,22 @@ public class PCControllerTest : MonoBehaviour {
     void Start () {
 		pcRigidbody = GetComponent<Rigidbody>();
         pcCamera = Camera.main.gameObject;
-        
+        anim = GetComponentInChildren<Animator>();
 	}
 
  
 	
 	// Update is called once per frame
 	void LateUpdate () {
+        if (Input.GetMouseButton(0))
+        {
+            anim.SetBool("attack", true);
+        }
+        else
+        {
+            anim.SetBool("attack", false);
+        }
+
         Vector3 facing = pcCamera.transform.forward;
         Vector3 rightfacing = pcCamera.transform.right;
 
@@ -61,8 +72,6 @@ public class PCControllerTest : MonoBehaviour {
         //ground functions
         if (currentGround != null)
         {
-           
-
             if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
             {
                 pcRigidbody.velocity = transform.forward * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0);
@@ -87,6 +96,15 @@ public class PCControllerTest : MonoBehaviour {
 
 
         }
+        if(IsGrounded() && pcRigidbody.velocity.magnitude > 0)
+        {
+            anim.SetBool("IsWalking", true);
+        }
+        else
+        {
+            anim.SetBool("IsWalking", false);
+        }
+        
       
     }
 
