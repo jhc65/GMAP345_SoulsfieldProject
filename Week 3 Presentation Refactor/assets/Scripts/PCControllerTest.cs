@@ -13,7 +13,6 @@ public class PCControllerTest : MonoBehaviour {
     [SerializeField]
     private float walkableAngle = 60f;
 
-
     [SerializeField]
     private float groundSpeed = 7f; //7f is a default but overwriteable value
     [SerializeField]
@@ -24,17 +23,17 @@ public class PCControllerTest : MonoBehaviour {
     private float airMaxAccel = .1f;
 
     private Vector3 currentFacing;
+    private bool isAttacking = false;
     // Use this for initialization
     void Start () {
 		pcRigidbody = GetComponent<Rigidbody>();
         pcCamera = Camera.main.gameObject;
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
 	}
 
- 
-	
 	// Update is called once per frame
 	void LateUpdate () {
+        
         if (Input.GetMouseButton(0))
         {
             anim.SetBool("attack", true);
@@ -69,9 +68,11 @@ public class PCControllerTest : MonoBehaviour {
         {
             currentFacing -= rightfacing;
         }
+
         //ground functions
-        if (currentGround != null)
+        if (currentGround != null && !anim.GetBool("attack")) 
         {
+            
             if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
             {
                 pcRigidbody.velocity = transform.forward * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0);
@@ -79,11 +80,16 @@ public class PCControllerTest : MonoBehaviour {
 
             if ((Input.GetKey(KeyCode.Space)))
             {
+                anim.SetBool("IsJumping", true);
+
                 pcRigidbody.velocity = new Vector3(pcRigidbody.velocity.x, jumpForce, pcRigidbody.velocity.z);
+            } else {
+                anim.SetBool("IsJumping", false);
             }
 
             RotateDo();
         }
+
         else //if not grounded
         {
          
@@ -93,9 +99,8 @@ public class PCControllerTest : MonoBehaviour {
             }
 
             RotateDo();
-
-
         }
+
         if(IsGrounded() && pcRigidbody.velocity.magnitude > 0)
         {
             anim.SetBool("IsWalking", true);
@@ -122,8 +127,10 @@ public class PCControllerTest : MonoBehaviour {
         //log difference betwen up and ground nourmal
         float hitAngle = Vector3.Angle(Vector3.up, contact.normal);
         //if contact point is at the bottom fo our collider and the angle is walkable
-        if (contact.point.y < transform.position.y - .48f && hitAngle < walkableAngle)
+        if (contact.point.y < transform.position.y && hitAngle < walkableAngle)
         {
+ 
+
             //log a reference for the ground hit
             currentGround = hit.gameObject;
         }
@@ -142,7 +149,7 @@ public class PCControllerTest : MonoBehaviour {
         }
     }
 
-    //
+
     private Vector3 AirVelocityAccelerate(Rigidbody acceleratingBody, float maxAccel, float maxSpeed)
     {
 
