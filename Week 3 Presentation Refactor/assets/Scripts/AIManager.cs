@@ -27,8 +27,7 @@ public class AIManager : MonoBehaviour {
 
         int endingChild = 0; // For keeping track of child spawn points 
         for (int numZone = 0; numZone < ZoningSpawnPoints.Length; numZone++) {
-            Zone z = new Zone();
-            Zones[numZone] = z;
+            Zones[numZone] = new Zone();
 
             for (int j = endingChild; j < endingChild + ZoningSpawnPoints[numZone]; j++) {
                 Zones[numZone].AddSpawnPoint(transform.GetChild(j));
