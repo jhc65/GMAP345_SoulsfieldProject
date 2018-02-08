@@ -4,51 +4,73 @@ using UnityEngine;
 
 public class AIManager : MonoBehaviour {
 
-    public List<GameObject> mushObjPool;
-    public List<Transform> aiNodePool;
-    public List<MushController> mushScriptPool;
-
+    public List<GameObject> enemyObjPool;
+    public List<EnemyController> enemyScriptPool;
     public List<GameObject> inactivePool;
+
+    // Areas for spawning
+    public List<Zone> Zones;
 
     //move to resources
     [SerializeField]
-    private GameObject mushPrefab;
-    
-    //number of Ai 
-    private int aiNum;
+    private GameObject enemyPrefab;
 
-    // Use this for initialization
-    void Start()
-    {   //get # of spawn Nodes
-        aiNum = transform.childCount;
-        //get every spawn path node transform
-        for (int i = 0; i < aiNum; i++)
-        {
-            aiNodePool.Add(transform.GetChild(i));
-        }
-        //spawn a enemy mush at every node
-        for (int i = 0; i < aiNum; i++)
-        {
-            mushObjPool.Add(Instantiate(mushPrefab, aiNodePool[i].transform.position, Quaternion.identity));
-            mushScriptPool.Add(mushObjPool[i].GetComponent<MushController>());
-            //log info on each Mushroom
-            mushScriptPool[i].spawnPos = aiNodePool[i].transform.position;
-            mushScriptPool[i].aiManager = GetComponent<AIManager>();
+    [Tooltip("Seperate spawn points by zones. E.g. size of 3 with values of 4 will make first 4 child spawn points zone1, next 4 child spawn points zone2 ..etc")]
+    public int[] ZoningSpawnPoints;
+
+    [HideInInspector]
+    public int CurrentZoneActive = 0;
+
+    // Setup zones as dictated by the ZoningSpawnPoints public object
+    void InitZones() {
+        Debug.Assert(ZoningSpawnPoints.Length > 0);
+
+        for (int numZone = 0; numZone < ZoningSpawnPoints.Length; numZone++) {
+            Zone z = new Zone();
+            Zones[numZone] = z;
+
+            for (int j = 0; j < ZoningSpawnPoints[numZone]; j++) {
+                Zones[numZone].AddSpawnPoint(transform.GetChild(j));
+            }
         }
     }
+
+    // Initialize spawn points with those in zone 1. 
+    void Start() {
+        InitZones();
+
+    }
+
+    // Spawn an enemy in the current zone
+    void SpawnInCurrentZone() {
+        int numSpawnPoints = Zones[CurrentZoneActive].SpawnPointPositions.Count;
+
+        // Spawn an enemy
+        for (int i = 0; i < numSpawnPoints; i++)
+        {
+            enemyObjPool.Add(Instantiate(enemyPrefab, Zones[CurrentZoneActive].SpawnPointPositions[i].transform.position, Quaternion.identity));
+            enemyScriptPool.Add(enemyObjPool[i].GetComponent<EnemyController>());
+
+            // Log info on each enemy
+            enemyScriptPool[i].spawnPos = Zones[CurrentZoneActive].SpawnPointPositions[i].transform.position;
+            enemyScriptPool[i].aiManager = GetComponent<AIManager>();
+        }
+    }
+
 
     //we should change this to a custom event
     void Update()
     {
-        if (inactivePool.Count == aiNum)
+        /*
+        if (inactivePool.Count == numSpawnPoints)
         {
             Debug.Log("inative pool");
-            for (int i = 0; i < aiNum; i ++)
+            for (int i = 0; i < numSpawnPoints; i ++)
             {
                 //set AI back to starting Position
-                mushScriptPool[i].transform.position = mushScriptPool[i].spawnPos;
+                enemyScriptPool[i].transform.position = enemyScriptPool[i].spawnPos;
                 //set AI back to active
-                mushObjPool[i].SetActive(true);
+                enemyObjPool[i].SetActive(true);
                 // Clear Inactive pool
                 
             }
@@ -56,6 +78,7 @@ public class AIManager : MonoBehaviour {
 
 
         }
+        */
 
     }
 }

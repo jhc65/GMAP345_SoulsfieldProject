@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MushController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
 
     private Animator anim;
