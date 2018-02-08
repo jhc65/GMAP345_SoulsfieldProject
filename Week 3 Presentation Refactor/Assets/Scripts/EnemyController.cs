@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
             if (Vector3.Distance(transform.position, currentTarget) <= 2)
             {
                 //select new target
-                currentTarget = aiManager.aiNodePool[Random.Range(0, aiManager.aiNodePool.Count)].transform.position;
+                currentTarget = aiManager.enemyScriptPool[Random.Range(0, aiManager.enemyScriptPool.Count)].transform.position;
                 Debug.Log(name + " has changed target to " + currentTarget);
             }
             else

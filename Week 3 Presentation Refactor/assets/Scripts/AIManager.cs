@@ -15,6 +15,7 @@ public class AIManager : MonoBehaviour {
     [SerializeField]
     private GameObject enemyPrefab;
 
+    [Header("MUST SET IN INSPECTOR!")]
     [Tooltip("Seperate spawn points by zones. E.g. size of 3 with values of 4 will make first 4 child spawn points zone1, next 4 child spawn points zone2 ..etc")]
     public int[] ZoningSpawnPoints;
 
@@ -24,23 +25,29 @@ public class AIManager : MonoBehaviour {
     // Setup zones as dictated by the ZoningSpawnPoints public object
     void InitZones() {
         Debug.Assert(ZoningSpawnPoints.Length > 0);
+        Zones = new List<Zone>();
 
         int endingChild = 0; // For keeping track of child spawn points 
         for (int numZone = 0; numZone < ZoningSpawnPoints.Length; numZone++) {
-            Zones[numZone] = new Zone();
+            Zones.Add(new Zone());
 
             for (int j = endingChild; j < endingChild + ZoningSpawnPoints[numZone]; j++) {
                 Zones[numZone].AddSpawnPoint(transform.GetChild(j));
-                endingChild++;
+             
             }
-
+            endingChild += ZoningSpawnPoints[numZone];
         }
     }
 
     // Initialize spawn points and zones. 
     void Start() {
         InitZones();
-
+        for (int i = 0; i < Zones.Count; i++) {
+            print(" Zone " + i + " data");
+            for (int j = 0; j < Zones[i].SpawnPointPositions.Count; j++) {
+                print(Zones[i].SpawnPointPositions[j]);
+            }
+        }
     }
 
     // Spawn an enemy in the current zone

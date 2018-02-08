@@ -566,7 +566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1204791087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,10 +579,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyObjPool: []
-  aiNodePool: []
   enemyScriptPool: []
   inactivePool: []
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 1910635349876766, guid: 0f4a65e0b7dd749528f4b49d5eba3268,
+    type: 2}
+  ZoningSpawnPoints: 0300000001000000
+  CurrentZoneActive: 0
 --- !u!4 &1204791088
 Transform:
   m_ObjectHideFlags: 0
