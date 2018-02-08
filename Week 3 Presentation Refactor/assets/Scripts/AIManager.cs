@@ -25,17 +25,20 @@ public class AIManager : MonoBehaviour {
     void InitZones() {
         Debug.Assert(ZoningSpawnPoints.Length > 0);
 
+        int endingChild = 0; // For keeping track of child spawn points 
         for (int numZone = 0; numZone < ZoningSpawnPoints.Length; numZone++) {
             Zone z = new Zone();
             Zones[numZone] = z;
 
-            for (int j = 0; j < ZoningSpawnPoints[numZone]; j++) {
+            for (int j = endingChild; j < endingChild + ZoningSpawnPoints[numZone]; j++) {
                 Zones[numZone].AddSpawnPoint(transform.GetChild(j));
+                endingChild++;
             }
+
         }
     }
 
-    // Initialize spawn points with those in zone 1. 
+    // Initialize spawn points and zones. 
     void Start() {
         InitZones();
 
