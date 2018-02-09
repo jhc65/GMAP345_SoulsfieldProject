@@ -96,10 +96,6 @@ public class AIManager : MonoBehaviour {
         }
     }
 
-    IEnumerator Wait(float sec) {
-        yield return new WaitForSeconds(sec);
-    } 
-
     // Spawn enemies one by one
     void Update() {
         if (!readyToSpawn)
