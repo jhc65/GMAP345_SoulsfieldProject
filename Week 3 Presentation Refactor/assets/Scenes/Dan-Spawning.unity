@@ -462,7 +462,7 @@ MonoBehaviour:
   inactivePool: []
   enemyPrefab: {fileID: 1910635349876766, guid: 0f4a65e0b7dd749528f4b49d5eba3268,
     type: 2}
-  ZoningSpawnPoints: 0300000001000000
+  ZoningSpawnPoints: 0100000003000000
   CurrentZoneActive: 0
 --- !u!4 &1204791088
 Transform:

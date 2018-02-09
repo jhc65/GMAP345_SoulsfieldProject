@@ -102,12 +102,12 @@ public class AIManager : MonoBehaviour {
             return;
         
         Wave w = Waves[currentWave];
-        if (timeSinceLastSpawn < w.SpawnFrequency) {
+        if (timeSinceLastSpawn < w.SpawnFrequency && currentEnemy > 0) {
             timeSinceLastSpawn += Time.deltaTime;
             return;
         } else { // Time to spawn if chance is met
             float randomChance = Random.Range(0, 1);
-            if (randomChance <= w.ChanceOfSpawn) {
+            if (randomChance <= w.ChanceOfSpawn ) {
                 enemyObjPool[currentEnemy].SetActive(true);
                 currentEnemy++;
             }
