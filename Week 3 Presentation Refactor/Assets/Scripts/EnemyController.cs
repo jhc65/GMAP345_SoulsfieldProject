@@ -6,52 +6,38 @@ public class EnemyController : MonoBehaviour
 {
 
     private Animator anim;
-    public int health = 3;
+    public int health = 1;
 
     [HideInInspector]
     public Vector3 spawnPos;
-
     public AIManager aiManager;
 
+    private GameObject player;
     private Vector3 currentTarget;
 
+    public float MovementSpeed; // speed of enemy towards player
 
     void Awake()
     {
-        currentTarget = spawnPos;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Update()
-    {
-        if (health > 0)
-        {
+    void Update() {
+        if (health <= 0)
+            return;
 
-            //nothing special here just moving between
-            //our pahting nodes
-            if (Vector3.Distance(transform.position, currentTarget) <= 2)
-            {
-                //select new target
-                currentTarget = aiManager.enemyScriptPool[Random.Range(0, aiManager.enemyScriptPool.Count)].transform.position;
-                Debug.Log(name + " has changed target to " + currentTarget);
-            }
-            else
-            {
-                //path to current target
-                transform.LookAt(currentTarget);//(new Vector3 (currentTarget.x, transform.position.y, currentTarget.z));
-                transform.position = Vector3.Lerp(transform.position, currentTarget, .5f * Time.deltaTime);
-                //Debug.Log("pathing");
-            }
-        }
+        currentTarget = player.transform.position;
+        transform.position = Vector3.MoveTowards(transform.position, currentTarget, MovementSpeed * Time.deltaTime);
     }
 
 
+    /*
     public void DisableMush()
     {
         aiManager.inactivePool.Add(gameObject);
-
         gameObject.SetActive(false);
     }
-
+    */
 
 
 }

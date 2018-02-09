@@ -11,6 +11,9 @@ public class AIManager : MonoBehaviour {
     // Areas for spawning
     public List<Zone> Zones;
 
+    // Wave data for spawning
+    public List<Wave> Waves;
+
     //move to resources
     [SerializeField]
     private GameObject enemyPrefab;
@@ -22,6 +25,12 @@ public class AIManager : MonoBehaviour {
     [HideInInspector]
     public int CurrentZoneActive = 0;
 
+    // For spawning
+    private bool readyToSpawn = false;
+    private int currentWave = 0;
+    private float timeSinceLastSpawn = 0f;
+    private int currentEnemy = 0;
+
     // Setup zones as dictated by the ZoningSpawnPoints public object
     void InitZones() {
         Debug.Assert(ZoningSpawnPoints.Length > 0);
@@ -30,7 +39,6 @@ public class AIManager : MonoBehaviour {
         int endingChild = 0; // For keeping track of child spawn points 
         for (int numZone = 0; numZone < ZoningSpawnPoints.Length; numZone++) {
             Zones.Add(new Zone());
-
             for (int j = endingChild; j < endingChild + ZoningSpawnPoints[numZone]; j++) {
                 Zones[numZone].AddSpawnPoint(transform.GetChild(j));
              
@@ -39,55 +47,79 @@ public class AIManager : MonoBehaviour {
         }
     }
 
-    // Initialize spawn points and zones. 
+    // Read file to get wave data of parameters for each wave
+    void InitWaves() {
+        Waves = ReadSpawnData.GetWavesFromFile();
+    }
+
+    // Initialize spawn points and zones and enemies. 
     void Start() {
         InitZones();
-        for (int i = 0; i < Zones.Count; i++) {
-            print(" Zone " + i + " data");
-            for (int j = 0; j < Zones[i].SpawnPointPositions.Count; j++) {
-                print(Zones[i].SpawnPointPositions[j]);
+        InitWaves();
+        InitEnemies();
+    }
+
+    // Instantiate all enemies and set to inactive
+    void InitEnemies() {
+        int numWaves = Waves.Count;
+        for (int i = 0; i < numWaves; i++) {
+            InsantiateWaveNum(i);
+        }
+
+        readyToSpawn = true;
+    }
+
+
+    // Instantiate game object of enemies at correct positions and set them inactive
+    void InsantiateWaveNum(int index) {
+        Wave w = Waves[index];
+        int numSpawned = 0;
+
+        // Loop over all enemies to spawn
+        while (numSpawned <= w.TotalToSpawn) {
+
+            // ---Create enemy-----
+            float ms = Random.Range(w.SlowestMS, w.FastestMS);
+
+            // Pick random spawn point
+            int randomPoint = Random.Range(0, Zones[CurrentZoneActive].SpawnPointPositions.Count);
+            Transform spawnPos = Zones[CurrentZoneActive].SpawnPointPositions[randomPoint];
+
+            // Spawn enemy and set its ms and other data
+            enemyObjPool.Add(Instantiate(enemyPrefab, spawnPos.position, Quaternion.identity));
+            enemyScriptPool.Add(enemyObjPool[numSpawned].GetComponent<EnemyController>());
+            enemyScriptPool[numSpawned].MovementSpeed = ms;
+            enemyScriptPool[numSpawned].spawnPos = spawnPos.position;
+            enemyScriptPool[numSpawned].aiManager = GetComponent<AIManager>();
+            enemyObjPool[numSpawned].SetActive(false); // set inactive
+            numSpawned++;
+        }
+    }
+
+    IEnumerator Wait(float sec) {
+        yield return new WaitForSeconds(sec);
+    } 
+
+    // Spawn enemies one by one
+    void Update() {
+        if (!readyToSpawn)
+            return;
+        
+        Wave w = Waves[currentWave];
+        if (timeSinceLastSpawn < w.SpawnFrequency) {
+            timeSinceLastSpawn += Time.deltaTime;
+            return;
+        } else { // Time to spawn if chance is met
+            float randomChance = Random.Range(0, 1);
+            if (randomChance <= w.ChanceOfSpawn) {
+                enemyObjPool[currentEnemy].SetActive(true);
+                currentEnemy++;
             }
+
+            timeSinceLastSpawn = 0f;
         }
+
+        // TODO: Increment currentWave when all enemies have been killed
     }
 
-    // Spawn an enemy in the current zone
-    void SpawnInCurrentZone() {
-        int numSpawnPoints = Zones[CurrentZoneActive].SpawnPointPositions.Count;
-
-        // Spawn an enemy
-        for (int i = 0; i < numSpawnPoints; i++)
-        {
-            enemyObjPool.Add(Instantiate(enemyPrefab, Zones[CurrentZoneActive].SpawnPointPositions[i].transform.position, Quaternion.identity));
-            enemyScriptPool.Add(enemyObjPool[i].GetComponent<EnemyController>());
-
-            // Log info on each enemy
-            enemyScriptPool[i].spawnPos = Zones[CurrentZoneActive].SpawnPointPositions[i].transform.position;
-            enemyScriptPool[i].aiManager = GetComponent<AIManager>();
-        }
-    }
-
-
-    //we should change this to a custom event
-    void Update()
-    {
-        /*
-        if (inactivePool.Count == numSpawnPoints)
-        {
-            Debug.Log("inative pool");
-            for (int i = 0; i < numSpawnPoints; i ++)
-            {
-                //set AI back to starting Position
-                enemyScriptPool[i].transform.position = enemyScriptPool[i].spawnPos;
-                //set AI back to active
-                enemyObjPool[i].SetActive(true);
-                // Clear Inactive pool
-                
-            }
-            inactivePool = new List<GameObject>();
-
-
-        }
-        */
-
-    }
 }

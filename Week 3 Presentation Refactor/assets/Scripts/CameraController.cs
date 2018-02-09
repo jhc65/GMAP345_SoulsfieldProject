@@ -25,6 +25,7 @@ public class CameraController : MonoBehaviour {
         //take in axis info from our mouse movement
         currentX += Input.GetAxis("Mouse X");
         currentY -= Input.GetAxis("Mouse Y");
+        currentY = Mathf.Clamp(currentY, 5, 60);
     }
 
 
