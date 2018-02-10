@@ -15,9 +15,6 @@ public class Wave {
     public float ChanceOfSpawn { get; set; }
     public float SpawnFrequency { get; set; }
 
-    // How many have been spawned at this wave so far
-    public int NumEnemiesSpawned { get; set; }
-
     public Wave(int n, float s, float fa, float c, float fr) {
         TotalToSpawn = n;
         SlowestMS = s;
