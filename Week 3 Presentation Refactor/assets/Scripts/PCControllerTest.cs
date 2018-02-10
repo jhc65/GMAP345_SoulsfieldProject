@@ -9,6 +9,7 @@ public class PCControllerTest : MonoBehaviour {
     private GameObject currentGround;
     private int health = 6;
     private Animator anim;
+    private Collider sword;
     
 
     [SerializeField]
@@ -33,17 +34,20 @@ public class PCControllerTest : MonoBehaviour {
 		pcRigidbody = GetComponent<Rigidbody>();
         pcCamera = Camera.main.gameObject;
         anim = GetComponent<Animator>();
-	}
+        sword = GameObject.FindGameObjectWithTag("Sword").GetComponent<Collider>();
+    }
 
 	// Update is called once per frame
 	void LateUpdate () {
         if (Input.GetMouseButton(0))
         {
             anim.SetBool("attack", true);
+            sword.enabled = true;
         }
         else
         {
             anim.SetBool("attack", false);
+            sword.enabled = false;
         }
 
         Vector3 facing = pcCamera.transform.forward;
