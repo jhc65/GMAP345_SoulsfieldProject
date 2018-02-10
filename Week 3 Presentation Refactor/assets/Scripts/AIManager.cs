@@ -96,17 +96,13 @@ public class AIManager : MonoBehaviour {
         }
     }
 
-    IEnumerator Wait(float sec) {
-        yield return new WaitForSeconds(sec);
-    } 
-
     // Spawn enemies one by one
     void Update() {
         if (!readyToSpawn)
             return;
         
         Wave w = Waves[currentWave];
-        if (timeSinceLastSpawn < w.SpawnFrequency) {
+        if (timeSinceLastSpawn < w.SpawnFrequency && currentEnemy > 0) {
             timeSinceLastSpawn += Time.deltaTime;
             return;
         } else { // Time to spawn if chance is met
@@ -114,12 +110,17 @@ public class AIManager : MonoBehaviour {
             if (randomChance <= w.ChanceOfSpawn) {
                 enemyObjPool[currentEnemy].SetActive(true);
                 currentEnemy++;
+                if (currentEnemy > w.TotalToSpawn) {
+                    currentEnemy = 0;
+                    readyToSpawn = false;
+                }
             }
 
             timeSinceLastSpawn = 0f;
         }
 
         // TODO: Increment currentWave when all enemies have been killed
+        // TODO/note: Possible logic error. EnemyObjPool currentEnemy index may not work for wave 2+. 
     }
 
 }
