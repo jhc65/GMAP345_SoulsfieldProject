@@ -107,15 +107,20 @@ public class AIManager : MonoBehaviour {
             return;
         } else { // Time to spawn if chance is met
             float randomChance = Random.Range(0, 1);
-            if (randomChance <= w.ChanceOfSpawn ) {
+            if (randomChance <= w.ChanceOfSpawn) {
                 enemyObjPool[currentEnemy].SetActive(true);
                 currentEnemy++;
+                if (currentEnemy > w.TotalToSpawn) {
+                    currentEnemy = 0;
+                    readyToSpawn = false;
+                }
             }
 
             timeSinceLastSpawn = 0f;
         }
 
         // TODO: Increment currentWave when all enemies have been killed
+        // TODO/note: Possible logic error. EnemyObjPool currentEnemy index may not work for wave 2+. 
     }
 
 }
