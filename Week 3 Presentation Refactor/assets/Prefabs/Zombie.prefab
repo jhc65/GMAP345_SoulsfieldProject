@@ -608,10 +608,10 @@ GameObject:
   - component: {fileID: 95972352878587310}
   - component: {fileID: 136613454607520984}
   - component: {fileID: 54143768415706288}
-  - component: {fileID: 114122454666611196}
+  - component: {fileID: 114705436463665778}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1370,7 +1370,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114122454666611196
+--- !u!114 &114705436463665778
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1381,9 +1381,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25c6eba250fb4c8bb7eb67de5979ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
   spawnPos: {x: 0, y: 0, z: 0}
   aiManager: {fileID: 0}
+  MovementSpeed: 0
 --- !u!136 &136613454607520984
 CapsuleCollider:
   m_ObjectHideFlags: 1

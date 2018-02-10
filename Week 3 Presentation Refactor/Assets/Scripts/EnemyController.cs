@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
 {
 
     private Animator anim;
-    public int health = 1;
+    private int health = 1;
 
     [HideInInspector]
     public Vector3 spawnPos;
@@ -22,12 +22,23 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Update() {
+    void Update()
+    {
         if (health <= 0)
-            return;
+        {
+            gameObject.SetActive(false);
+        }
 
         currentTarget = player.transform.position;
         transform.position = Vector3.MoveTowards(transform.position, currentTarget, MovementSpeed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider hit)
+    {
+        if (hit.gameObject.tag == "Sword")
+        {
+            health--;
+        }
     }
 
 

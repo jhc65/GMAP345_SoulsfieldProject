@@ -7,8 +7,9 @@ public class PCControllerTest : MonoBehaviour {
     private GameObject pcCamera;
 
     private GameObject currentGround;
-
+    private int health = 6;
     private Animator anim;
+    
 
     [SerializeField]
     private float walkableAngle = 60f;
@@ -21,6 +22,9 @@ public class PCControllerTest : MonoBehaviour {
     private float airMaxSpeed = 6f;
     [SerializeField]
     private float airMaxAccel = .1f;
+    private float knockbackForce = -5f;
+    private float knockbackCounter = .1f;
+    private Vector3 knockBackDirection;
 
     private Vector3 currentFacing;
     private bool isAttacking = false;
@@ -33,7 +37,6 @@ public class PCControllerTest : MonoBehaviour {
 
 	// Update is called once per frame
 	void LateUpdate () {
-        
         if (Input.GetMouseButton(0))
         {
             anim.SetBool("attack", true);
@@ -48,66 +51,75 @@ public class PCControllerTest : MonoBehaviour {
 
         facing.y = 0;
         rightfacing.y = 0;
-
-        if (Input.GetKey(KeyCode.W))
+        if (knockbackCounter <= 0)
         {
-            currentFacing += facing;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            currentFacing -= facing; 
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            currentFacing += rightfacing;  
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            currentFacing -= rightfacing;
-        }
-
-        //ground functions
-        if (currentGround != null && !anim.GetBool("attack")) 
-        {
-            
-            if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
+            if (Input.GetKey(KeyCode.W))
             {
-                pcRigidbody.velocity = transform.forward * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0);
+                currentFacing += facing;
             }
 
-            if ((Input.GetKey(KeyCode.Space)))
+            if (Input.GetKey(KeyCode.S))
             {
-                anim.SetBool("IsJumping", true);
-
-                pcRigidbody.velocity = new Vector3(pcRigidbody.velocity.x, jumpForce, pcRigidbody.velocity.z);
-            } else {
-                anim.SetBool("IsJumping", false);
+                currentFacing -= facing;
             }
 
-            RotateDo();
-        }
-
-        else //if not grounded
-        {
-         
-            if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
+            if (Input.GetKey(KeyCode.D))
             {
-                pcRigidbody.velocity = AirVelocityAccelerate(pcRigidbody, airMaxAccel, airMaxSpeed);
+                currentFacing += rightfacing;
             }
 
-            RotateDo();
-        }
+            if (Input.GetKey(KeyCode.A))
+            {
+                currentFacing -= rightfacing;
+            }
 
-        if(IsGrounded() && pcRigidbody.velocity.magnitude > 0)
-        {
-            anim.SetBool("IsWalking", true);
+            //ground functions
+            if (currentGround != null && !anim.GetBool("attack"))
+            {
+
+                if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
+                {
+                    pcRigidbody.velocity = transform.forward * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0);
+                }
+
+                if ((Input.GetKey(KeyCode.Space)))
+                {
+                    anim.SetBool("IsJumping", true);
+
+                    pcRigidbody.velocity = new Vector3(pcRigidbody.velocity.x, jumpForce, pcRigidbody.velocity.z);
+                }
+                else
+                {
+                    anim.SetBool("IsJumping", false);
+                }
+
+                RotateDo();
+            }
+
+            else //if not grounded
+            {
+
+                if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
+                {
+                    pcRigidbody.velocity = AirVelocityAccelerate(pcRigidbody, airMaxAccel, airMaxSpeed);
+                }
+
+                RotateDo();
+            }
+
+            if (IsGrounded() && pcRigidbody.velocity.magnitude > 0)
+            {
+                anim.SetBool("IsWalking", true);
+            }
+            else
+            {
+                anim.SetBool("IsWalking", false);
+            }
         }
         else
         {
-            anim.SetBool("IsWalking", false);
+            pcRigidbody.velocity = knockBackDirection;
+            knockbackCounter -= Time.deltaTime;
         }
         
       
@@ -138,6 +150,23 @@ public class PCControllerTest : MonoBehaviour {
         if( hit.gameObject.tag == "Bouncy")
         {
             pcRigidbody.velocity = new Vector3(pcRigidbody.velocity.x, jumpForce, pcRigidbody.velocity.z);
+        }
+    }
+
+    private void OnCollisionEnter(Collision hit)
+    {
+        if (hit.gameObject.tag == "Enemy")
+        {
+            health--;
+            knockBackDirection = hit.transform.position - transform.position;
+            knockBackDirection = knockBackDirection.normalized;
+            knockBackDirection = knockBackDirection * knockbackForce;
+            knockBackDirection.y = (knockbackForce) * -1;
+            knockbackCounter = 1;
+        }
+        if(health <= 0)
+        {
+            gameObject.SetActive(false);
         }
     }
 
