@@ -24,10 +24,6 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (health <= 0)
-        {
-            gameObject.SetActive(false);
-        }
 
         currentTarget = player.transform.position;
         transform.position = Vector3.MoveTowards(transform.position, currentTarget, MovementSpeed * Time.deltaTime);
@@ -38,6 +34,9 @@ public class EnemyController : MonoBehaviour
         if (hit.gameObject.tag == "Sword")
         {
             health--;
+            if (health <= 0) {
+                gameObject.SetActive(false);
+            }
         }
     }
 

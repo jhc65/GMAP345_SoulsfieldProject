@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PCControllerTest : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
     private Rigidbody pcRigidbody;
     private GameObject pcCamera;
 
@@ -23,7 +23,7 @@ public class PCControllerTest : MonoBehaviour {
     private float airMaxSpeed = 6f;
     [SerializeField]
     private float airMaxAccel = .1f;
-    private float knockbackForce = -5f;
+    private float knockbackForce = -10f;
     private float knockbackCounter = .1f;
     private Vector3 knockBackDirection;
 
@@ -111,17 +111,28 @@ public class PCControllerTest : MonoBehaviour {
                 RotateDo();
             }
 
-            if (IsGrounded() && pcRigidbody.velocity.magnitude > 0)
+            if (IsGrounded())
             {
-                anim.SetBool("IsWalking", true);
+                anim.SetBool("IsJumping", false);
+
+                if (pcRigidbody.velocity.magnitude > 0) {
+                    anim.SetBool("IsWalking", true);
+                } else {
+                    anim.SetBool("IsWalking", false);
+
+                }
             }
             else
             {
+                
                 anim.SetBool("IsWalking", false);
+                anim.SetBool("IsJumping", true);
+
             }
         }
         else
         {
+      
             pcRigidbody.velocity = knockBackDirection;
             knockbackCounter -= Time.deltaTime;
         }
@@ -143,10 +154,9 @@ public class PCControllerTest : MonoBehaviour {
         //log difference betwen up and ground nourmal
         float hitAngle = Vector3.Angle(Vector3.up, contact.normal);
         //if contact point is at the bottom fo our collider and the angle is walkable
-        if (contact.point.y < transform.position.y && hitAngle < walkableAngle)
+        if (contact.point.y < transform.position.y + .5f && hitAngle < walkableAngle)
         {
  
-
             //log a reference for the ground hit
             currentGround = hit.gameObject;
         }
@@ -165,7 +175,7 @@ public class PCControllerTest : MonoBehaviour {
             knockBackDirection = hit.transform.position - transform.position;
             knockBackDirection = knockBackDirection.normalized;
             knockBackDirection = knockBackDirection * knockbackForce;
-            knockBackDirection.y = (knockbackForce) * -1;
+            knockBackDirection.y = (knockbackForce) * -.5f;
             knockbackCounter = 1;
         }
         if(health <= 0)
