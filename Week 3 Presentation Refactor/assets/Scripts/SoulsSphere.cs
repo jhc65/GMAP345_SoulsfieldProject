@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class SoulsSphere : MonoBehaviour
 {
-
     private GameObject player;
-
     private Vector3 currentTarget;
-
     public int numSouls;
-
     private float MovementSpeed;
-
     private float distance;
 
     public SoulsSphere(int souls)
