@@ -62,9 +62,9 @@ public class AIManager : MonoBehaviour {
     // Instantiate all enemies and set to inactive
     void InitEnemies() {
         int numWaves = Waves.Count;
-        for (int i = 0; i < numWaves; i++) {
-            InsantiateWaveNum(i);
-        }
+       // for (int i = 0; i < numWaves; i++) {
+        InsantiateWaveNum(0);
+        //}
 
         readyToSpawn = true;
     }
