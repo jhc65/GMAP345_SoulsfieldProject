@@ -37,7 +37,10 @@ public static class ReadSpawnData {
             line = reader.ReadLine();
             float freq = float.Parse(line);
 
-            Wave w = new Wave(num, min, max, chance, freq);
+            line = reader.ReadLine();
+            int souls = int.Parse(line);
+
+            Wave w = new Wave(num, min, max, chance, freq, souls);
             waves.Add(w);
             line = reader.ReadLine();
             Debug.Assert(line.Equals(";"), "Error reading wave data. Semicolon delimiter missing");

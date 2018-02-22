@@ -80,6 +80,7 @@ public class AIManager : MonoBehaviour {
 
             // ---Create enemy-----
             float ms = Random.Range(w.SlowestMS, w.FastestMS);
+            int souls = w.NumberOfSouls;
 
             // Pick random spawn point
             int randomPoint = Random.Range(0, Zones[CurrentZoneActive].SpawnPointPositions.Count);
@@ -89,6 +90,7 @@ public class AIManager : MonoBehaviour {
             enemyObjPool.Add(Instantiate(enemyPrefab, spawnPos.position, Quaternion.identity));
             enemyScriptPool.Add(enemyObjPool[numSpawned].GetComponent<EnemyController>());
             enemyScriptPool[numSpawned].MovementSpeed = ms;
+            enemyScriptPool[numSpawned].numSouls = souls;
             enemyScriptPool[numSpawned].spawnPos = spawnPos.position;
             enemyScriptPool[numSpawned].aiManager = GetComponent<AIManager>();
             enemyObjPool[numSpawned].SetActive(false); // set inactive

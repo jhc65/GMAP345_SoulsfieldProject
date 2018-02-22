@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     private Vector3 currentTarget;
 
     public float MovementSpeed; // speed of enemy towards player
+    public int numSouls;
 
     void Awake()
     {
@@ -35,6 +36,11 @@ public class EnemyController : MonoBehaviour
         {
             health--;
             if (health <= 0) {
+                if (numSouls > 0)
+                {
+                    GameObject soulsSphere = Instantiate(Resources.Load("SoulsSphere"), transform.position, transform.rotation) as GameObject;
+                    soulsSphere.GetComponent<SoulsSphere>().numSouls = this.numSouls;
+                }
                 gameObject.SetActive(false);
             }
         }
