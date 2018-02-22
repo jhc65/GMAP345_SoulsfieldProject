@@ -16,37 +16,38 @@ public static class ReadSpawnData {
     public static List<Wave> GetWavesFromFile() {
         List<Wave> waves = new List<Wave>();
 
-        string path = "Assets/Resources/SpawnData.txt";
+        string path = "SpawnData";
 
         //Read the text from directly from the test.txt file
-        StreamReader reader = new StreamReader(path);
+        TextAsset spawnData = Resources.Load(path) as TextAsset;
 
-        while(!reader.EndOfStream) {
-            string line = reader.ReadLine();
+        string[] linesFromfile = spawnData.text.Split('\n');
+
+        for (int i = 0; i < linesFromfile.Length; i+=7) {
+            string line = linesFromfile[i];
             int num = int.Parse(line);
 
-            line = reader.ReadLine();
+            line = linesFromfile[i+1];
             float min = float.Parse(line);
 
-            line = reader.ReadLine();
+            line = linesFromfile[i + 2];
             float max = float.Parse(line);
 
-            line = reader.ReadLine();
+            line = linesFromfile[i + 3];
             float chance = float.Parse(line);
 
-            line = reader.ReadLine();
+            line = linesFromfile[i + 4];
             float freq = float.Parse(line);
 
-            line = reader.ReadLine();
+            line = linesFromfile[i + 5];
             int souls = int.Parse(line);
 
             Wave w = new Wave(num, min, max, chance, freq, souls);
             waves.Add(w);
-            line = reader.ReadLine();
-            Debug.Assert(line.Equals(";"), "Error reading wave data. Semicolon delimiter missing");
+            line = linesFromfile[i + 6];
+           // Debug.Assert(line.Equals(";"), "Error reading wave data. Semicolon delimiter missing");
         }
 
-        reader.Close();
         return waves;
     }
 

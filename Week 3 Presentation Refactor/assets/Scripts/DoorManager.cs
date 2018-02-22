@@ -21,7 +21,7 @@ public class DoorManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float dist = Vector3.Distance(player.transform.position, transform.position);
-        Debug.Log(dist);
+      //  Debug.Log(dist);
         if (dist < distance)
         {
             if(Input.GetKeyDown(KeyCode.E) && soulsManager.getSouls() >= soulsRequired)
