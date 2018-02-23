@@ -57,8 +57,9 @@ public class EnemyController : MonoBehaviour
 
     private void OssilateGlow() {
 
-        // With a speed of 8 * Time.time, osssilate from 0.5 to 8 rim power
-        float rp = Mathf.PingPong(Time.time * 8f, 8.0f) + 0.5f;
+        // With a speed, osssilate from 0.5 to 8 rim power
+        float speed = 20f;
+        float rp = Mathf.PingPong(Time.time * speed, 8.0f) + 0.5f;
         foreach (Renderer rend in rends) {
             rend.material.SetFloat("_RimPower", rp);
         }
