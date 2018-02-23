@@ -18,14 +18,21 @@ public class EnemyController : MonoBehaviour
     public float MovementSpeed; // speed of enemy towards player
     public int numSouls;
 
+    // For glowing effect
+    private Renderer[] rends;
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        rends= GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in rends) {
+            if (!rend.gameObject.CompareTag("IgnoreGlow"))
+                rend.material.shader = Shader.Find("Custom/GhostShader");
+        }
     }
 
     void Update()
     {
-
+        OssilateGlow();
         currentTarget = player.transform.position;
         transform.LookAt(currentTarget);
         transform.position = Vector3.MoveTowards(transform.position, currentTarget, MovementSpeed * Time.deltaTime);
@@ -45,6 +52,15 @@ public class EnemyController : MonoBehaviour
                 }
                 gameObject.SetActive(false);
             }
+        }
+    }
+
+    private void OssilateGlow() {
+
+        // With a speed of 8 * Time.time, osssilate from 0.5 to 8 rim power
+        float rp = Mathf.PingPong(Time.time * 8f, 8.0f) + 0.5f;
+        foreach (Renderer rend in rends) {
+            rend.material.SetFloat("_RimPower", rp);
         }
     }
 
