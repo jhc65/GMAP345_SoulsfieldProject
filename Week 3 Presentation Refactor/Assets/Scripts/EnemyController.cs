@@ -19,11 +19,12 @@ public class EnemyController : MonoBehaviour
     public int numSouls;
 
     // For glowing effect
+    // Gets all child renderers of the object (body parts)
     private Renderer[] rends;
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        rends= GetComponentsInChildren<Renderer>();
+        rends = GetComponentsInChildren<Renderer>();
         foreach (Renderer rend in rends) {
             if (!rend.gameObject.CompareTag("IgnoreGlow"))
                 rend.material.shader = Shader.Find("Custom/GhostShader");
