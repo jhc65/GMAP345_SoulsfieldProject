@@ -27,7 +27,6 @@ public class PlayRandomSoundEffect : MonoBehaviour
         }
         else {
             timeElapsed += Time.deltaTime;
-            print(timeElapsed);
         }
     }
 }
