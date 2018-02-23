@@ -3131,7 +3131,7 @@ MonoBehaviour:
   enemyObjPool: []
   enemyScriptPool: []
   inactivePool: []
-  enemyPrefab: {fileID: 1189462230996730, guid: 9e3e00d2051bc4a1f98498e597d3583f,
+  enemyPrefab: {fileID: 1723721739307494, guid: 866b05450600f456cbb6957477d3125c,
     type: 2}
   ZoningSpawnPoints: 04000000
   CurrentZoneActive: 0

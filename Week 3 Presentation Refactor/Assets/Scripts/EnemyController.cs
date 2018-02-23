@@ -27,7 +27,9 @@ public class EnemyController : MonoBehaviour
     {
 
         currentTarget = player.transform.position;
+        transform.LookAt(currentTarget);
         transform.position = Vector3.MoveTowards(transform.position, currentTarget, MovementSpeed * Time.deltaTime);
+
     }
 
     private void OnTriggerEnter(Collider hit)
