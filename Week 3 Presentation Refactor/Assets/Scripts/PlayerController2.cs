@@ -24,12 +24,12 @@ public class PlayerController2 : MonoBehaviour {
     private float airMaxSpeed = 6f;
     [SerializeField]
     private float airMaxAccel = .1f;
-	[SerializeField]
+    [SerializeField]
     private float sprintSpeed = 1.5f; //multipilier of original character speed
-	[SerializeField]
+    [SerializeField]
     private int maxSprintTime = 3; //max amount of time in seconds the player can sprint
-	private float timer = 0.0f;	   // value used in timer count do not modify
-	private int sprintTimer = 0;   // value used in timer count do not modify
+    private float timer = 0.0f;	   // value used in timer count do not modify
+    private int sprintTimer = 0;   // value used in timer count do not modify
 
 
 
@@ -90,18 +90,17 @@ public class PlayerController2 : MonoBehaviour {
             {
                 pcRigidbody.velocity = transform.forward * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0);
             }
-			
-			if(Input.GetKey(KeyCode.LeftShift) && sprintTimer < maxSprintTime)
-			{	
-                pcRigidbody.velocity = transform.forward * sprintSpeed * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0);
-				timer += Time.deltaTime;
-				sprintTimer = Convert.ToInt32( timer % 60);	
-			}
-			if(!Input.GetKey(KeyCode.LeftShift) && sprintTimer > 0)
-			{	
-				timer -= Time.deltaTime;
-				sprintTimer = Convert.ToInt32( timer % 60);	
-			}
+	    if(Input.GetKey(KeyCode.LeftShift) && sprintTimer < maxSprintTime)
+	    {
+		pcRigidbody.velocity = transform.forward * sprintSpeed * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0);
+		timer += Time.deltaTime;
+		sprintTimer = Convert.ToInt32( timer % 60);
+	    }
+	    if(!Input.GetKey(KeyCode.LeftShift) && sprintTimer > 0)
+	    {	
+		timer -= Time.deltaTime;
+		sprintTimer = Convert.ToInt32( timer % 60);	
+            }
             if ((Input.GetKey(KeyCode.Space)))
             {
                 anim.SetBool("IsJumping", true);
