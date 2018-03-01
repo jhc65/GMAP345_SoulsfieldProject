@@ -81,6 +81,10 @@ public class EnemyController : MonoBehaviour
         float rp = Mathf.PingPong(Time.time * speed, 8.0f) + 0.5f;
         foreach (Renderer rend in rends) {
             rend.material.SetFloat("_RimPower", rp);
+            rend.material.SetFloat("_MainTex", rp);
+
+           // rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, rend.material.color.a - (1 * Time.deltaTime));
+
         }
     }
 }
