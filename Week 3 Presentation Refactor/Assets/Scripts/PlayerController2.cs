@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 using System;
 public class PlayerController2 : MonoBehaviour {
     private Rigidbody pcRigidbody;
@@ -177,7 +179,7 @@ public class PlayerController2 : MonoBehaviour {
         if (hit.gameObject.tag == "Enemy")
         {
             health--;
-            hit.gameObject.GetComponent<EnemyController>().Die(); // Kill ghost
+            hit.gameObject.GetComponent<EnemyController>().Die(false); // Remove ghost, but player didn't kill it
 
             // Play ghost hit effect on desired body parts wtih this script
             foreach (SwapMaterialEffect effect in GetComponentsInChildren<SwapMaterialEffect>())
@@ -186,7 +188,10 @@ public class PlayerController2 : MonoBehaviour {
 
         if(health <= 0)
         {
+            SceneManager.LoadScene("Scenes/GameOver");
+
             gameObject.SetActive(false);
+
         }
     }
 

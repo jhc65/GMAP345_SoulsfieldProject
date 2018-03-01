@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
     public float MovementSpeed; // speed of enemy towards player
     public int numSouls;
     public bool isLast = false;
+    private bool isDead = false;
 
     // For glowing effect
     // Gets all child renderers of the object (body parts)
@@ -28,23 +29,29 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         rends = GetComponentsInChildren<Renderer>();
         foreach (Renderer rend in rends) {
-            if (!rend.gameObject.CompareTag("IgnoreGlow"))
+            if (!rend.gameObject.CompareTag("IgnoreGlow")) // Ignore glow on particle effects
                 rend.material.shader = Shader.Find("Custom/GhostShader");
         }
     }
 
     void Update()
     {
-        OssilateGlow();
+        if (isDead)
+            return;
         currentTarget = player.transform.position;
         transform.LookAt(currentTarget);
         transform.position = Vector3.MoveTowards(transform.position, currentTarget, MovementSpeed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+        OssilateGlow();
     }
 
-    public void Die() {
+    public void Die(bool wasKilled = true) {
+        isDead = true; // stop moving towards player and glowing
+
+        // Remove capsule collider while death animation plays
+        GetComponent<CapsuleCollider>().enabled = false;
         anim.SetInteger("DeathValue", Random.Range(0,2)); // Play a random animation
-        if (numSouls > 0) {
+        if (numSouls > 0 && wasKilled) {
             GameObject soulsSphere = Instantiate(Resources.Load("SoulsSphere"), transform.position, transform.rotation) as GameObject;
             soulsSphere.GetComponent<SoulsSphere>().numSouls = this.numSouls;
         }
@@ -52,10 +59,9 @@ public class EnemyController : MonoBehaviour
         if (isLast) {
             aiManager.OnLastEnemyKilled();
         }
-
-        this.enabled = false;
     }
 
+    // When enemy is hit by sword
     private void OnTriggerEnter(Collider hit)
     {
         if (hit.gameObject.tag == "Sword")
@@ -63,7 +69,7 @@ public class EnemyController : MonoBehaviour
             health--;
             if (health <= 0) {
                 GetComponent<PlayRandomSoundEffect>().PlayDeathSound();
-                Die();
+                Die(true);
             }
         }
     }
@@ -77,15 +83,4 @@ public class EnemyController : MonoBehaviour
             rend.material.SetFloat("_RimPower", rp);
         }
     }
-
-
-    /*
-    public void DisableMush()
-    {
-        aiManager.inactivePool.Add(gameObject);
-        gameObject.SetActive(false);
-    }
-    */
-
-
 }
