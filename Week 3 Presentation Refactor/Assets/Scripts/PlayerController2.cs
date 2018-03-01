@@ -177,7 +177,7 @@ public class PlayerController2 : MonoBehaviour {
         if (hit.gameObject.tag == "Enemy")
         {
             health--;
-            hit.gameObject.GetComponent<EnemyController>().Die(); // Kill ghost
+            hit.gameObject.GetComponent<EnemyController>().Die(false); // Remove ghost, but player didn't kill it
 
             // Play ghost hit effect on desired body parts wtih this script
             foreach (SwapMaterialEffect effect in GetComponentsInChildren<SwapMaterialEffect>())
