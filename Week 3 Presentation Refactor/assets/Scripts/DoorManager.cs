@@ -5,20 +5,20 @@ using UnityEngine;
 public class DoorManager : MonoBehaviour {
 
     public int soulsRequired;
+    public AIManager a;
+
     private Vector3 pivot;
     private GameObject player;
     private SoulsManager soulsManager;
     public float distance = 5f;
     public float movementAngle;
 
-	// Use this for initialization
 	void Start () {
         pivot = transform.GetChild(0).position;
         player = GameObject.FindGameObjectWithTag("Player");
         soulsManager = player.GetComponent<SoulsManager>();
     }
 	
-	// Update is called once per frame
 	void Update () {
         float dist = Vector3.Distance(player.transform.position, transform.position);
       //  Debug.Log(dist);
@@ -28,6 +28,7 @@ public class DoorManager : MonoBehaviour {
             {
                 transform.RotateAround(pivot, Vector3.up, movementAngle);
                 soulsManager.numSouls -= soulsRequired;
+                a.ActivateNewZone();
                 enabled = false;
             }
         }

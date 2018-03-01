@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
 
     public float MovementSpeed; // speed of enemy towards player
     public int numSouls;
+    public bool isLast = false;
 
     // For glowing effect
     // Gets all child renderers of the object (body parts)
@@ -40,18 +41,27 @@ public class EnemyController : MonoBehaviour
         transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
     }
 
+    public void Die() {
+        gameObject.SetActive(false);
+        int s = 0;
+        while (s < numSouls) {
+            GameObject soulsSphere = Instantiate(Resources.Load("SoulsSphere"), transform.position, transform.rotation) as GameObject;
+            soulsSphere.GetComponent<SoulsSphere>().numSouls = this.numSouls;
+            s++;
+        }
+
+        if (isLast) {
+            aiManager.OnLastEnemyKilled();
+        }
+    }
+
     private void OnTriggerEnter(Collider hit)
     {
         if (hit.gameObject.tag == "Sword")
         {
             health--;
             if (health <= 0) {
-                if (numSouls > 0)
-                {
-                    GameObject soulsSphere = Instantiate(Resources.Load("SoulsSphere"), transform.position, transform.rotation) as GameObject;
-                    soulsSphere.GetComponent<SoulsSphere>().numSouls = this.numSouls;
-                }
-                gameObject.SetActive(false);
+                Die();
             }
         }
     }

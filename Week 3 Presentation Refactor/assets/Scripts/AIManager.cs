@@ -22,8 +22,7 @@ public class AIManager : MonoBehaviour {
     [Tooltip("Seperate spawn points by zones. E.g. size of 3 with values of 4 will make first 4 child spawn points zone1, next 4 child spawn points zone2 ..etc")]
     public int[] ZoningSpawnPoints;
 
-    [HideInInspector]
-    public int CurrentZoneActive = 0;
+    private int HighestZone = 1;
 
     // For spawning
     private bool readyToSpawn = false;
@@ -41,10 +40,29 @@ public class AIManager : MonoBehaviour {
             Zones.Add(new Zone());
             for (int j = endingChild; j < endingChild + ZoningSpawnPoints[numZone]; j++) {
                 Zones[numZone].AddSpawnPoint(transform.GetChild(j));
-             
             }
             endingChild += ZoningSpawnPoints[numZone];
         }
+    }
+
+    // Increase highest zone 
+    public void ActivateNewZone() {
+        HighestZone++;
+    }
+
+    // Callback for when the last enemy is killed.
+    // Start spawning next wave
+    public void OnLastEnemyKilled() {
+        readyToSpawn = false;
+        currentWave++;
+        InitEnemies();
+        StartCoroutine(TimeBetweenWaves(5));
+    }
+
+    // After x seconds, start spawning again
+    IEnumerator TimeBetweenWaves(float time) {
+        yield return new WaitForSeconds(time);
+        readyToSpawn = true;
     }
 
     // Read file to get wave data of parameters for each wave
@@ -54,19 +72,25 @@ public class AIManager : MonoBehaviour {
 
     // Initialize spawn points and zones and enemies. 
     void Start() {
+        
+        // Set up zones
         InitZones();
+        // Read from file data about the waves to spawn
         InitWaves();
+
+        // Create enemies with currentWave = 0
         InitEnemies();
+
+        // Start spawning
+        StartCoroutine(TimeBetweenWaves(0));
     }
 
     // Instantiate all enemies and set to inactive
     void InitEnemies() {
-        int numWaves = Waves.Count;
-       // for (int i = 0; i < numWaves; i++) {
-        InsantiateWaveNum(0);
-        //}
-
-        readyToSpawn = true;
+        if (currentWave >= Waves.Count) {
+            currentWave = 0;
+        }
+        InsantiateWaveNum(currentWave);
     }
 
 
@@ -75,19 +99,23 @@ public class AIManager : MonoBehaviour {
         Wave w = Waves[index];
         int numSpawned = 0;
         int numWithSouls = 0;
+        enemyObjPool.Clear();
+        enemyScriptPool.Clear();
+        currentEnemy = 0;
 
         // Loop over all enemies to spawn
-        while (numSpawned <= w.TotalToSpawn) {
+        while (numSpawned < w.TotalToSpawn) {
 
             // ---Create enemy-----
             float ms = Random.Range(w.SlowestMS, w.FastestMS);
-            int souls = w.NumberOfSouls;
 
-            // Pick random spawn point
-            int randomPoint = Random.Range(0, Zones[CurrentZoneActive].SpawnPointPositions.Count);
-            Transform spawnPos = Zones[CurrentZoneActive].SpawnPointPositions[randomPoint];
+            // Pick random spawn point from a random zone (that have been unlocked)
+            int randomZone = Random.Range(0, HighestZone);
+            int randomPoint = Random.Range(0, Zones[randomZone].SpawnPointPositions.Count);
 
-            // Spawn enemy and set its ms and other data
+            Transform spawnPos = Zones[randomZone].SpawnPointPositions[randomPoint];
+
+            // Instantiate enemy obj and set its ms and other data
             enemyObjPool.Add(Instantiate(enemyPrefab, spawnPos.position, Quaternion.identity));
             enemyScriptPool.Add(enemyObjPool[numSpawned].GetComponent<EnemyController>());
             enemyScriptPool[numSpawned].MovementSpeed = ms;
@@ -97,10 +125,18 @@ public class AIManager : MonoBehaviour {
             enemyObjPool[numSpawned].SetActive(false); // set inactive
             numSpawned++;
         }
+
+        // Set callback for last enemy
+        enemyScriptPool[numSpawned - 1].isLast = true; 
+
+        // Set soul
         Dictionary<int, int> enemiesWithSouls = new Dictionary<int, int>();
         while(numWithSouls < w.NumEnemiesHaveSouls)
         {
+            // pick a random enemy to assign a soul
             int loc = Random.Range(0, enemyScriptPool.Count);
+
+            // keep getting a valid location that hasn't been picked yet
             if (!enemiesWithSouls.ContainsKey(loc))
             {
                 enemyScriptPool[loc].numSouls = w.NumberOfSouls;
@@ -108,14 +144,16 @@ public class AIManager : MonoBehaviour {
                 numWithSouls++;
             }
         }
+
     }
 
     // Spawn enemies one by one
     void Update() {
         if (!readyToSpawn)
             return;
-        
+
         Wave w = Waves[currentWave];
+
         if (timeSinceLastSpawn < w.SpawnFrequency && currentEnemy > 0) {
             timeSinceLastSpawn += Time.deltaTime;
             return;
@@ -124,17 +162,17 @@ public class AIManager : MonoBehaviour {
             if (randomChance <= w.ChanceOfSpawn) {
                 enemyObjPool[currentEnemy].SetActive(true);
                 currentEnemy++;
-                if (currentEnemy > w.TotalToSpawn) {
-                    currentEnemy = 0;
+
+                // Last enemy was created
+                if (currentEnemy >= w.TotalToSpawn) {
+
+                    // Reset
                     readyToSpawn = false;
+                    return;
                 }
             }
-
             timeSinceLastSpawn = 0f;
         }
-
-        // TODO: Increment currentWave when all enemies have been killed
-        // TODO/note: Possible logic error. EnemyObjPool currentEnemy index may not work for wave 2+. 
     }
 
 }
