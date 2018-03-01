@@ -11,7 +11,6 @@ public class CameraController : MonoBehaviour {
 
     private float currentX = 0.0f;
     private float currentY = 0.0f;
-
    
     void Start () {
       
@@ -21,7 +20,8 @@ public class CameraController : MonoBehaviour {
 	}
 	// Update is called once per frame
     private void Update ()
-    {   
+    {
+
         //take in axis info from our mouse movement
         currentX += Input.GetAxis("Mouse X");
         currentY -= Input.GetAxis("Mouse Y");

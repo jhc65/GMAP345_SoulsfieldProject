@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 using System;
 public class PlayerController2 : MonoBehaviour {
     private Rigidbody pcRigidbody;
@@ -186,7 +188,10 @@ public class PlayerController2 : MonoBehaviour {
 
         if(health <= 0)
         {
+            SceneManager.LoadScene("Scenes/GameOver");
+
             gameObject.SetActive(false);
+
         }
     }
 
