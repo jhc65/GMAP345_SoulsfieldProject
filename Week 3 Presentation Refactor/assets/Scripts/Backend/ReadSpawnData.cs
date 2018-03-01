@@ -23,7 +23,7 @@ public static class ReadSpawnData {
 
         string[] linesFromfile = spawnData.text.Split('\n');
 
-        for (int i = 0; i < linesFromfile.Length; i+=7) {
+        for (int i = 0; i < linesFromfile.Length; i+=8) {
             string line = linesFromfile[i];
             int num = int.Parse(line);
 
@@ -42,7 +42,10 @@ public static class ReadSpawnData {
             line = linesFromfile[i + 5];
             int souls = int.Parse(line);
 
-            Wave w = new Wave(num, min, max, chance, freq, souls);
+            line = linesFromfile[i + 6];
+            int numHaveSouls = int.Parse(line);
+
+            Wave w = new Wave(num, min, max, chance, freq, souls, numHaveSouls);
             waves.Add(w);
             line = linesFromfile[i + 6];
            // Debug.Assert(line.Equals(";"), "Error reading wave data. Semicolon delimiter missing");

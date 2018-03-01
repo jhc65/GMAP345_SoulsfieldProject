@@ -17,13 +17,15 @@ public class Wave {
 
     // Number of souls each enemy will have
     public int NumberOfSouls;
+    public int NumEnemiesHaveSouls;
 
-    public Wave(int n, float s, float fa, float c, float fr, int ns) {
+    public Wave(int n, float s, float fa, float c, float fr, int ns, int nh) {
         TotalToSpawn = n;
         SlowestMS = s;
         FastestMS = fa;
         ChanceOfSpawn = c;
         SpawnFrequency = fr;
         NumberOfSouls = ns;
+        NumEnemiesHaveSouls = nh;
     }
 }

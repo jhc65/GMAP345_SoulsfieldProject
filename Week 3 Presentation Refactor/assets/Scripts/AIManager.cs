@@ -74,6 +74,7 @@ public class AIManager : MonoBehaviour {
     void InsantiateWaveNum(int index) {
         Wave w = Waves[index];
         int numSpawned = 0;
+        int numWithSouls = 0;
 
         // Loop over all enemies to spawn
         while (numSpawned <= w.TotalToSpawn) {
@@ -90,11 +91,22 @@ public class AIManager : MonoBehaviour {
             enemyObjPool.Add(Instantiate(enemyPrefab, spawnPos.position, Quaternion.identity));
             enemyScriptPool.Add(enemyObjPool[numSpawned].GetComponent<EnemyController>());
             enemyScriptPool[numSpawned].MovementSpeed = ms;
-            enemyScriptPool[numSpawned].numSouls = souls;
+            enemyScriptPool[numSpawned].numSouls = 0; //initiate all numSouls to zero
             enemyScriptPool[numSpawned].spawnPos = spawnPos.position;
             enemyScriptPool[numSpawned].aiManager = GetComponent<AIManager>();
             enemyObjPool[numSpawned].SetActive(false); // set inactive
             numSpawned++;
+        }
+        Dictionary<int, int> enemiesWithSouls = new Dictionary<int, int>();
+        while(numWithSouls < w.NumEnemiesHaveSouls)
+        {
+            int loc = Random.Range(0, enemyScriptPool.Count);
+            if (!enemiesWithSouls.ContainsKey(loc))
+            {
+                enemyScriptPool[loc].numSouls = w.NumberOfSouls;
+                enemiesWithSouls.Add(loc, 1);
+                numWithSouls++;
+            }
         }
     }
 
