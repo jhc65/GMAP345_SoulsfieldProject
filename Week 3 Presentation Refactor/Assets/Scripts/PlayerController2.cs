@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class PlayerController2 : MonoBehaviour {
     private Rigidbody pcRigidbody;
     private GameObject pcCamera;
@@ -23,7 +23,13 @@ public class PlayerController2 : MonoBehaviour {
     private float airMaxSpeed = 6f;
     [SerializeField]
     private float airMaxAccel = .1f;
-
+    [SerializeField]
+    private float sprintSpeed = 1.5f; //multipilier of original character speed
+    [SerializeField]
+    private int maxSprintTime = 3; //max amount of time in seconds the player can sprint
+    private float timer = 0.0f;     // value used in timer count do not modify
+    private int sprintTimer = 0;   // value used in timer count do not modify
+ 
 
     private Vector3 currentFacing;
     private bool isAttacking = false;
@@ -82,11 +88,21 @@ public class PlayerController2 : MonoBehaviour {
             {
                 pcRigidbody.velocity = transform.forward * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0);
             }
+            if(Input.GetKey(KeyCode.LeftShift) && sprintTimer < maxSprintTime) 
+            {   
+                pcRigidbody.velocity = transform.forward * sprintSpeed * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0); 
+                timer += Time.deltaTime; 
+                sprintTimer = Convert.ToInt32( timer % 60);   
+            } 
+            if(!Input.GetKey(KeyCode.LeftShift) && sprintTimer > 0) 
+            {   
+                timer -= Time.deltaTime; 
+                sprintTimer = Convert.ToInt32( timer % 60);   
+            } 
 
             if ((Input.GetKey(KeyCode.Space)))
             {
                 anim.SetBool("IsJumping", true);
-
                 pcRigidbody.velocity = new Vector3(pcRigidbody.velocity.x, jumpForce, pcRigidbody.velocity.z);
             }
             else
@@ -112,7 +128,7 @@ public class PlayerController2 : MonoBehaviour {
         {
             anim.SetBool("IsJumping", false);
 
-            if (pcRigidbody.velocity.magnitude > 0) {
+            if (pcRigidbody.velocity.magnitude > .1f) {
                 anim.SetBool("IsWalking", true);
             } else {
                 anim.SetBool("IsWalking", false);
