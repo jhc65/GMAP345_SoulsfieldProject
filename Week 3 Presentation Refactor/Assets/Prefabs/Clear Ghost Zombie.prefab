@@ -1176,6 +1176,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d28392f5488e84e7ab8196cb0f8e8976, type: 3}
   - {fileID: 8300000, guid: f5c2954494530476f92d899c004af1b0, type: 3}
   - {fileID: 8300000, guid: 62ec0a25118a84340bfe838b79f76309, type: 3}
+  deathNoises:
+  - {fileID: 8300000, guid: 6a3c18fb89df4486ba51700d7bea320c, type: 3}
+  - {fileID: 8300000, guid: aad468b8d11c944829ad940797fba50a, type: 3}
 --- !u!114 &114448224024032064
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -62,6 +62,7 @@ public class EnemyController : MonoBehaviour
         {
             health--;
             if (health <= 0) {
+                GetComponent<PlayRandomSoundEffect>().PlayDeathSound();
                 Die();
             }
         }

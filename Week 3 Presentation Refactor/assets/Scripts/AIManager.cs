@@ -126,7 +126,7 @@ public class AIManager : MonoBehaviour {
             numSpawned++;
         }
 
-        // Set callback for last enemy
+        // Set callback for last enemy to later end the round
         enemyScriptPool[numSpawned - 1].isLast = true; 
 
         // Set soul
@@ -144,7 +144,6 @@ public class AIManager : MonoBehaviour {
                 numWithSouls++;
             }
         }
-
     }
 
     // Spawn enemies one by one
