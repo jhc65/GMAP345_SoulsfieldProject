@@ -24,6 +24,7 @@ public class EnemyController : MonoBehaviour
     private Renderer[] rends;
     void Awake()
     {
+        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         rends = GetComponentsInChildren<Renderer>();
         foreach (Renderer rend in rends) {
@@ -42,17 +43,17 @@ public class EnemyController : MonoBehaviour
     }
 
     public void Die() {
-        gameObject.SetActive(false);
-        int s = 0;
-        while (s < numSouls) {
+        anim.SetInteger("DeathValue", Random.Range(0,2)); // Play a random animation
+        if (numSouls > 0) {
             GameObject soulsSphere = Instantiate(Resources.Load("SoulsSphere"), transform.position, transform.rotation) as GameObject;
             soulsSphere.GetComponent<SoulsSphere>().numSouls = this.numSouls;
-            s++;
         }
 
         if (isLast) {
             aiManager.OnLastEnemyKilled();
         }
+
+        this.enabled = false;
     }
 
     private void OnTriggerEnter(Collider hit)
