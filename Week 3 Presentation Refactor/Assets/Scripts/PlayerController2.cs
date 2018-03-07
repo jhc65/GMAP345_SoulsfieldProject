@@ -4,7 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 using System;
+using UnityEngine.UI;
+
 public class PlayerController2 : MonoBehaviour {
+
+    // UI Objects
+    [SerializeField]
+    private Text t_playerHealth;
+    [SerializeField]
+    private Text t_playerSouls;
+    [SerializeField]
+    private SoulsManager soulsManager;
+
     private Rigidbody pcRigidbody;
     private GameObject pcCamera;
 
@@ -43,8 +54,14 @@ public class PlayerController2 : MonoBehaviour {
         sword = GameObject.FindGameObjectWithTag("Sword").GetComponent<Collider>();
     }
 
-	// Update is called once per frame
-	void LateUpdate () {
+    private void Update()
+    {
+        t_playerHealth.text = Convert.ToString(health);
+        t_playerSouls.text = Convert.ToString(soulsManager.getSouls());
+    }
+
+    // Update is called once per frame
+    void LateUpdate () {
         if (Input.GetMouseButton(0))
         {
             anim.SetBool("attack", true);

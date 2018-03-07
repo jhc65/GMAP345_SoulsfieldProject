@@ -1,8 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AIManager : MonoBehaviour {
+
+    // UI Objects
+    [SerializeField]
+    private Text t_roundCount;
 
     public List<GameObject> enemyObjPool;
     public List<EnemyController> enemyScriptPool;
@@ -148,6 +153,8 @@ public class AIManager : MonoBehaviour {
 
     // Spawn enemies one by one
     void Update() {
+        t_roundCount.text = System.Convert.ToString(currentWave);
+
         if (!readyToSpawn)
             return;
 
