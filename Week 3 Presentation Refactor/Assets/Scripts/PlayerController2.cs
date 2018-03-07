@@ -48,6 +48,7 @@ public class PlayerController2 : MonoBehaviour {
         pcCamera = Camera.main.gameObject;
         anim = GetComponent<Animator>();
         sword = GameObject.FindGameObjectWithTag("Sword").GetComponent<Collider>();
+        anim.SetFloat("Blend", .32f);
     }
 
 	// Update is called once per frame
@@ -102,7 +103,7 @@ public class PlayerController2 : MonoBehaviour {
         }
 
         //ground functions
-        if (currentGround != null && !anim.GetBool("attack"))
+        if (currentGround != null)
         {
 
             if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
