@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 using System;
-public class PlayerController2 : MonoBehaviour {
+public class PlayerController3 : MonoBehaviour {
     private Rigidbody pcRigidbody;
     private GameObject pcCamera;
 
@@ -38,13 +38,14 @@ public class PlayerController2 : MonoBehaviour {
 
     private float slowMultiplier = .75f; // multiplier to slow down speed
     private float baseGroundSpeed; // base player speed set at start in order to revert ground speed after slowed
+ 
 
     private Vector3 currentFacing;
     private bool isAttacking = false;
     // Use this for initialization
     void Start () {
         baseGroundSpeed = groundSpeed;
-        pcRigidbody = GetComponent<Rigidbody>();
+		pcRigidbody = GetComponent<Rigidbody>();
         pcCamera = Camera.main.gameObject;
         anim = GetComponent<Animator>();
         sword = GameObject.FindGameObjectWithTag("Sword").GetComponent<Collider>();
@@ -90,7 +91,7 @@ public class PlayerController2 : MonoBehaviour {
         }
 
         //if the player is slowed, decrease the timer
-        if (slowdownTimer > 0)
+        if(slowdownTimer > 0)
         {
             slowdownTimer -= Time.deltaTime;
         }
@@ -199,9 +200,9 @@ public class PlayerController2 : MonoBehaviour {
                 slowdownTimer = maxSlowdownTimer;
                 groundSpeed = groundSpeed * slowMultiplier;
             }
-
+            
             //if the animation speed is normal, slow it down.
-            if (anim.speed == 1)
+            if(anim.speed == 1)
                 anim.speed = anim.speed * slowMultiplier;
         }
 
