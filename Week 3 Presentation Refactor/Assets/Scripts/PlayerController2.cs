@@ -42,16 +42,24 @@ public class PlayerController2 : MonoBehaviour {
     private int maxSprintTime = 3; //max amount of time in seconds the player can sprint
     private float timer = 0.0f;     // value used in timer count do not modify
     private int sprintTimer = 0;   // value used in timer count do not modify
- 
+
+    // MaxTimer value and slowdown timer used to slow the player
+    private float maxSlowdownTimer = 5f;
+    private float slowdownTimer = 0.0f;
+
+    private float slowMultiplier = .75f; // multiplier to slow down speed
+    private float baseGroundSpeed; // base player speed set at start in order to revert ground speed after slowed
 
     private Vector3 currentFacing;
     private bool isAttacking = false;
     // Use this for initialization
     void Start () {
-		pcRigidbody = GetComponent<Rigidbody>();
+        baseGroundSpeed = groundSpeed;
+        pcRigidbody = GetComponent<Rigidbody>();
         pcCamera = Camera.main.gameObject;
         anim = GetComponent<Animator>();
         sword = GameObject.FindGameObjectWithTag("Sword").GetComponent<Collider>();
+        anim.SetFloat("Blend", .32f);
     }
 
     private void Update()
@@ -99,8 +107,20 @@ public class PlayerController2 : MonoBehaviour {
             currentFacing -= rightfacing;
         }
 
+        //if the player is slowed, decrease the timer
+        if (slowdownTimer > 0)
+        {
+            slowdownTimer -= Time.deltaTime;
+        }
+        //once timer goes off, revert the groundSpeed and anim speed
+        else
+        {
+            groundSpeed = baseGroundSpeed;
+            anim.speed = 1;
+        }
+
         //ground functions
-        if (currentGround != null && !anim.GetBool("attack"))
+        if (currentGround != null)
         {
 
             if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
@@ -117,18 +137,7 @@ public class PlayerController2 : MonoBehaviour {
             {   
                 timer -= Time.deltaTime; 
                 sprintTimer = Convert.ToInt32( timer % 60);   
-            } 
-
-            if ((Input.GetKey(KeyCode.Space)))
-            {
-                anim.SetBool("IsJumping", true);
-                pcRigidbody.velocity = new Vector3(pcRigidbody.velocity.x, jumpForce, pcRigidbody.velocity.z);
             }
-            else
-            {
-                anim.SetBool("IsJumping", false);
-            }
-
             RotateDo();
         }
 
@@ -200,7 +209,18 @@ public class PlayerController2 : MonoBehaviour {
 
             // Play ghost hit effect on desired body parts wtih this script
             foreach (SwapMaterialEffect effect in GetComponentsInChildren<SwapMaterialEffect>())
-                effect.enabled = true; 
+                effect.enabled = true;
+
+            //if the player is not slowed, set the slowdown timer and change ground speed.
+            if (slowdownTimer <= 0)
+            {
+                slowdownTimer = maxSlowdownTimer;
+                groundSpeed = groundSpeed * slowMultiplier;
+            }
+
+            //if the animation speed is normal, slow it down.
+            if (anim.speed == 1)
+                anim.speed = anim.speed * slowMultiplier;
         }
 
         if(health <= 0)
