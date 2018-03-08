@@ -5674,7 +5674,9 @@ GameObject:
   - component: {fileID: 1104572340}
   - component: {fileID: 1104572339}
   - component: {fileID: 1104572338}
+  - component: {fileID: 1104572345}
   - component: {fileID: 1104572343}
+  - component: {fileID: 1104572344}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5770,6 +5772,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 16262e5f946b244238b0a4f1ebe44de9, type: 2}
+--- !u!114 &1104572344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1104572337}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f60aad6262042e295ffc8ee4f76231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 0, y: 0, z: 0}
+--- !u!114 &1104572345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1104572337}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4503b910a958c4174abd56b3bdd56648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPosition: {x: 0, y: 0, z: 0}
+  startPostion: {x: 0, y: 0, z: 0}
+  duration: 30
 --- !u!1001 &1109075513
 Prefab:
   m_ObjectHideFlags: 0

@@ -5,8 +5,7 @@ using UnityEngine;
 // Look at player
 public class GameOverCam : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject pcObj;
+    public Vector3 target;
 
     void Start()
 	{
@@ -16,6 +15,6 @@ public class GameOverCam : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-        transform.LookAt(pcObj.transform.position);
+        transform.LookAt(target);
 	}
 }

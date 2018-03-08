@@ -9,8 +9,8 @@ using UnityEngine;
     public class CameraMoveToPoint : MonoBehaviour
     {
         
-        [SerializeField] private Vector3 targePosition; //position to go
-        Vector3 startPostion; //start position (transform.position)
+        public Vector3 targetPosition; //position to go
+        public Vector3 startPostion; //start position (transform.position)
         [SerializeField] private float duration = 25f; //one way duration
 
         private bool isAtGoal = false;
@@ -22,7 +22,7 @@ using UnityEngine;
             //While playing the scene go to target position and back
             while (!isAtGoal)
             {
-                yield return StartCoroutine (MoveCamera (startPostion, targePosition));
+                yield return StartCoroutine (MoveCamera (startPostion, targetPosition));
                // yield return StartCoroutine (MoveCamera (targePosition, startPostion));
             }
         }
@@ -59,7 +59,7 @@ using UnityEngine;
             //Draw the camera path
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere (this.transform.position, 0.3f);
-            Gizmos.DrawLine (this.transform.position, targePosition);
-            Gizmos.DrawWireSphere (targePosition, 0.3f);
+            Gizmos.DrawLine (this.transform.position, targetPosition);
+            Gizmos.DrawWireSphere (targetPosition, 0.3f);
         }
     }

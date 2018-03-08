@@ -227,12 +227,19 @@ public class PlayerController2 : MonoBehaviour {
         }
 
         // TODO: Do this in this scene, just enable another camera and stop movement
-        if(health <= 0)
+        if(health <= 3)
         {
-            SceneManager.LoadScene("Scenes/GameOver");
-
+            pcCamera.GetComponent<CameraController>().enabled = false;
+            pcCamera.GetComponent<GameOverCam>().target = transform.position;
+            pcCamera.GetComponent<CameraMoveToPoint>().startPostion = pcCamera.transform.position;
+            Vector3 goalPos = transform.position;
+            goalPos.y = transform.position.y + 200;
+            goalPos.z = transform.position.z - 200;
+            pcCamera.GetComponent<CameraMoveToPoint>().targetPosition = goalPos;
+            pcCamera.GetComponent<CameraMoveToPoint>().enabled = true;
+            pcCamera.GetComponent<GameOverCam>().enabled = true;
+            this.enabled = false;
             gameObject.SetActive(false);
-
         }
     }
 
