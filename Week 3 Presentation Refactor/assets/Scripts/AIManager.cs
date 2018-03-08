@@ -153,7 +153,8 @@ public class AIManager : MonoBehaviour {
 
     // Spawn enemies one by one
     void Update() {
-        t_roundCount.text = System.Convert.ToString(currentWave);
+        if (t_roundCount)
+            t_roundCount.text = System.Convert.ToString(currentWave);
 
         if (!readyToSpawn)
             return;

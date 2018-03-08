@@ -59,11 +59,13 @@ public class PlayerController2 : MonoBehaviour {
         pcCamera = Camera.main.gameObject;
         anim = GetComponent<Animator>();
         sword = GameObject.FindGameObjectWithTag("Sword").GetComponent<Collider>();
-        anim.SetFloat("Blend", .32f);
+        anim.SetFloat("Blend", .7f);
     }
 
     private void Update()
     {
+        if (t_playerSouls == null || t_playerHealth == null)
+            return;
         t_playerHealth.text = Convert.ToString(health);
         t_playerSouls.text = Convert.ToString(soulsManager.getSouls());
     }
@@ -156,7 +158,7 @@ public class PlayerController2 : MonoBehaviour {
         {
             anim.SetBool("IsJumping", false);
 
-            if (pcRigidbody.velocity.magnitude > .1f) {
+            if (pcRigidbody.velocity.magnitude > .05f) {
                 anim.SetBool("IsWalking", true);
             } else {
                 anim.SetBool("IsWalking", false);
@@ -206,6 +208,7 @@ public class PlayerController2 : MonoBehaviour {
         {
             health--;
             hit.gameObject.GetComponent<EnemyController>().Die(false); // Remove ghost, but player didn't kill it
+            SendAllGhostsNearbyAway(20);
 
             // Play ghost hit effect on desired body parts wtih this script
             foreach (SwapMaterialEffect effect in GetComponentsInChildren<SwapMaterialEffect>())
@@ -223,6 +226,7 @@ public class PlayerController2 : MonoBehaviour {
                 anim.speed = anim.speed * slowMultiplier;
         }
 
+        // TODO: Do this in this scene, just enable another camera and stop movement
         if(health <= 0)
         {
             SceneManager.LoadScene("Scenes/GameOver");
@@ -232,6 +236,17 @@ public class PlayerController2 : MonoBehaviour {
         }
     }
 
+    // Shoo all ghosts away in a radius
+    private void SendAllGhostsNearbyAway(float radius) {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            if (hitColliders[i].gameObject.CompareTag("Enemy"))
+                hitColliders[i].gameObject.GetComponent<EnemyController>().MoveAway();
+            i++;
+        }
+    }
     private void OnCollisionExit(Collision hit)
     {
         if (hit.collider.gameObject == currentGround)
