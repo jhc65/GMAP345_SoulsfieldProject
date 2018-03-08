@@ -1,4 +1,4 @@
-﻿3 - Wave 1 // Number of enemies to spawn this wave
+﻿5 - Wave 1 // Number of enemies to spawn this wave
 2 - 	   // Minimum movment speed
 3 - 	   // Maximum movement speed
 1 -        // Probability (0-1) of spawning every (next number) seconds

@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 114001355027244276}
   - component: {fileID: 199629333199810438}
   - component: {fileID: 198686997272156748}
+  - component: {fileID: 114940426682953744}
   m_Layer: 0
   m_Name: GhostBlob
   m_TagString: Untagged
@@ -177,6 +178,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70f47e99623a5043adc11839706250a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114940426682953744
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1586624976801054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b01687cc06bf948bd90b8a8e5981b6bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GoalPosition: {x: 0, y: 0, z: 0}
+  OriginalEnemy: {fileID: 0}
+  movementSpeed: 10
 --- !u!198 &198344059037000498
 ParticleSystem:
   m_ObjectHideFlags: 1

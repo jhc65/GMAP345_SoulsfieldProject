@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    
     public GameObject deathSmoke;
+    public GameObject ghostBlob;
+
     private Animator anim;
     private int health = 1;
 
@@ -19,7 +22,9 @@ public class EnemyController : MonoBehaviour
     public int numSouls;
     public bool isLast = false;
     private bool isDead = false;
+    private bool isMovingTowardsPlayer = true;
 
+    [SerializeField] private int maxGroupSize = 4; // if there are this many ghosts, move away
     // For glowing effect
     // Gets all child renderers of the object (body parts)
     private Renderer[] rends;
@@ -38,17 +43,20 @@ public class EnemyController : MonoBehaviour
     {
         if (isDead)
             return;
-        currentTarget = player.transform.position;
-        transform.LookAt(currentTarget);
-        transform.position = Vector3.MoveTowards(transform.position, currentTarget, MovementSpeed * Time.deltaTime);
-        transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
-        OssilateGlow();
+        if (isMovingTowardsPlayer) {
+            currentTarget = player.transform.position;
+            transform.LookAt(currentTarget);
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget, MovementSpeed * Time.deltaTime);
+            transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+            MoveAway();
+            OssilateGlow();
+        }
+
     }
 
     public void Die(bool wasKilled = true) {
-        if (!deathSmoke)
-            print("NULL");
-        Instantiate(deathSmoke, transform.position, Quaternion.identity);
+        if (deathSmoke)
+            Instantiate(deathSmoke, transform.position, Quaternion.identity);
 
         isDead = true; // stop moving towards player and glowing
 
@@ -92,4 +100,52 @@ public class EnemyController : MonoBehaviour
 
         }
     }
+
+    // Probably the worst performant way to do this? 
+    private int CountEnemiesNearby(float radius) {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
+        int i = 0;
+        int enemies = 0;
+        while (i < hitColliders.Length)
+        {
+            if (hitColliders[i].gameObject.CompareTag("Enemy"))
+                enemies++;
+            i++;
+        }
+
+        return enemies;
+    }
+
+    private void MoveAway() {
+        if (CountEnemiesNearby(10) >= maxGroupSize) {
+            
+            // Too many enemies nearby. Move away to a random position
+            Vector3 randomPos = new Vector3(transform.position.x + Random.Range(5, 15), 2, transform.position.z + Random.Range(5, 15));
+            GameObject blob = Instantiate(ghostBlob, transform.position, Quaternion.identity);
+            blob.GetComponent<BlobController>().GoalPosition = randomPos;
+            blob.GetComponent<BlobController>().OriginalEnemy = GetComponent<EnemyController>();
+            Deactivate();
+        }
+    }
+
+    // Move off screen and turn invisible and stop moving towards player
+    private void Deactivate() {
+        transform.position = new Vector3(Random.Range(0, 100), Random.Range(-100, -200), Random.Range(0, 100));
+        foreach(MeshRenderer r in GetComponentsInChildren<MeshRenderer>()) {
+            r.enabled = false;
+        }
+        isMovingTowardsPlayer = false;
+    }
+
+    // Move back to correct position and turn rendrer back on
+    public void Reactiveate(Vector3 position) {
+        transform.position = position;
+        foreach (MeshRenderer r in GetComponentsInChildren<MeshRenderer>())
+        {
+            r.enabled = true;
+        }
+        isMovingTowardsPlayer = true;
+    }
+
+
 }
