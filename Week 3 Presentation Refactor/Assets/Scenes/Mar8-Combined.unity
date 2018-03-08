@@ -2345,19 +2345,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4284387978406648, guid: aaeb61f03985d4346a501fe9a40354db, type: 2}
       propertyPath: m_LocalScale.y
-      value: 2.843107
+      value: 4.7004824
       objectReference: {fileID: 0}
     - target: {fileID: 4284387978406648, guid: aaeb61f03985d4346a501fe9a40354db, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.526
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 4284387978406648, guid: aaeb61f03985d4346a501fe9a40354db, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.009
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4284387978406648, guid: aaeb61f03985d4346a501fe9a40354db, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.543
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4743313446853270, guid: aaeb61f03985d4346a501fe9a40354db, type: 2}
       propertyPath: m_RootOrder
@@ -2399,11 +2399,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4284387978406648, guid: aaeb61f03985d4346a501fe9a40354db, type: 2}
       propertyPath: m_LocalScale.x
-      value: 2.0535939
+      value: 3.395187
       objectReference: {fileID: 0}
     - target: {fileID: 4284387978406648, guid: aaeb61f03985d4346a501fe9a40354db, type: 2}
       propertyPath: m_LocalScale.z
-      value: 3.6890013
+      value: 6.098992
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114577117768940178, guid: aaeb61f03985d4346a501fe9a40354db, type: 2}
@@ -7090,7 +7090,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 143b7d5b2434ad84e8af9b05b0afe2f2, type: 2}
+      objectReference: {fileID: 2100000, guid: f5dbcb6e65bac4d44a2e2c681e5dade7, type: 2}
     - target: {fileID: 23928671515960604, guid: a03606f214a213b478db8d0813f58568,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
