@@ -385,68 +385,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5463c855c66b2f740b4bc4c6379e0f97, type: 3}
   m_IsPrefabParent: 0
---- !u!1001 &132518446
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 637259116}
-    m_Modifications:
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.04500226
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.57180846
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.06426986
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.8166268
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 290
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -9
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 2157dffc46ee7c249bc667d90c7ddc09, type: 3}
-  m_IsPrefabParent: 0
 --- !u!1001 &137361458
 Prefab:
   m_ObjectHideFlags: 0
@@ -1754,6 +1692,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc244f9443fa4b7f8b2e0edba1a4e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  t_playerHealth: {fileID: 0}
+  t_playerSouls: {fileID: 0}
+  soulsManager: {fileID: 0}
   walkableAngle: 75
   groundSpeed: 10
   jumpForce: 30
@@ -2802,6 +2743,68 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 5463c855c66b2f740b4bc4c6379e0f97, type: 3}
   m_PrefabInternal: {fileID: 949587732}
+--- !u!1001 &996772957
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 637259116}
+    m_Modifications:
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.57357657
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.81915194
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 290
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4421492e413fe7045857b2451a3b307f, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1001 &1003796295
 Prefab:
   m_ObjectHideFlags: 0
@@ -3329,6 +3332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0908fd6d3b1a3f84986d3552cf078846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  t_roundCount: {fileID: 0}
   enemyObjPool: []
   enemyScriptPool: []
   inactivePool: []
