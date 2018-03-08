@@ -2346,7 +2346,7 @@ GameObject:
   - component: {fileID: 449312389}
   - component: {fileID: 449312388}
   m_Layer: 5
-  m_Name: Canvas (1)
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2421,7 +2421,7 @@ RectTransform:
   m_Children:
   - {fileID: 1697013785}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6280,7 +6280,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1104572343
 MonoBehaviour:
@@ -7213,6 +7213,46 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.radiusThickness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
         type: 2}
@@ -8647,48 +8687,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 5463c855c66b2f740b4bc4c6379e0f97, type: 3}
   m_PrefabInternal: {fileID: 1519621366}
---- !u!1001 &1535879728
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4350901573305774, guid: b62de648a773244638fb62a00904e04a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 5.518218
-      objectReference: {fileID: 0}
-    - target: {fileID: 4350901573305774, guid: b62de648a773244638fb62a00904e04a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 4350901573305774, guid: b62de648a773244638fb62a00904e04a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 25.877867
-      objectReference: {fileID: 0}
-    - target: {fileID: 4350901573305774, guid: b62de648a773244638fb62a00904e04a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4350901573305774, guid: b62de648a773244638fb62a00904e04a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4350901573305774, guid: b62de648a773244638fb62a00904e04a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4350901573305774, guid: b62de648a773244638fb62a00904e04a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4350901573305774, guid: b62de648a773244638fb62a00904e04a, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b62de648a773244638fb62a00904e04a, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1542431486
 GameObject:
   m_ObjectHideFlags: 0
@@ -11169,6 +11167,46 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.radiusThickness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
         type: 2}
