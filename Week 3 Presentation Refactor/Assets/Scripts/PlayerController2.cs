@@ -59,7 +59,7 @@ public class PlayerController2 : MonoBehaviour {
         pcCamera = Camera.main.gameObject;
         anim = GetComponent<Animator>();
         sword = GameObject.FindGameObjectWithTag("Sword").GetComponent<Collider>();
-        anim.SetFloat("Blend", .7f);
+        anim.SetFloat("Blend", .5f);
     }
 
     private void Update()
@@ -227,7 +227,7 @@ public class PlayerController2 : MonoBehaviour {
         }
 
         // TODO: Do this in this scene, just enable another camera and stop movement
-        if(health <= 3)
+        if(health <= 0)
         {
             pcCamera.GetComponent<CameraController>().enabled = false;
             pcCamera.GetComponent<GameOverCam>().target = transform.position;

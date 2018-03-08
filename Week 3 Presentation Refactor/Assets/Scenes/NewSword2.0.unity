@@ -156,6 +156,18 @@ Prefab:
       propertyPath: m_Name
       value: Sword_Textured
       objectReference: {fileID: 0}
+    - target: {fileID: 4232903721788138, guid: 89643eff0efa14bebb859aba10bac0e2, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232903721788138, guid: 89643eff0efa14bebb859aba10bac0e2, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232903721788138, guid: 89643eff0efa14bebb859aba10bac0e2, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 89643eff0efa14bebb859aba10bac0e2, type: 2}
   m_IsPrefabParent: 0
