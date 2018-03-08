@@ -18,7 +18,7 @@ public class SwapMaterialEffect : MonoBehaviour
     // Switch back and forth
     private float timeSinceLast;
     private float elapsedTime;
-    private float switchTime = .3f;
+    private float switchTime = .1f;
     private bool swap;
 
 

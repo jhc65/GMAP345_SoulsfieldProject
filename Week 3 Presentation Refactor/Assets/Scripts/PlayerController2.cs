@@ -169,7 +169,6 @@ public class PlayerController2 : MonoBehaviour {
         }
         else
         {
-            
             anim.SetBool("IsWalking", false);
             anim.SetBool("IsJumping", true);
 
@@ -254,7 +253,7 @@ public class PlayerController2 : MonoBehaviour {
         while (i < hitColliders.Length)
         {
             if (hitColliders[i].gameObject.CompareTag("Enemy"))
-                hitColliders[i].gameObject.GetComponent<EnemyController>().MoveAway();
+                hitColliders[i].gameObject.GetComponent<EnemyController>().MoveAway(30, 50);
             i++;
         }
     }
