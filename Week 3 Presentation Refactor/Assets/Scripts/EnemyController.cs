@@ -123,7 +123,7 @@ public class EnemyController : MonoBehaviour
             Vector3 randomPos = new Vector3(transform.position.x + Random.Range(5, 15), 2, transform.position.z + Random.Range(5, 15));
             GameObject blob = Instantiate(ghostBlob, transform.position, Quaternion.identity);
             blob.GetComponent<BlobController>().GoalPosition = randomPos;
-            blob.GetComponent<BlobController>().OriginalEnemy = this.GetComponent<EnemyController>();
+            blob.GetComponent<BlobController>().OriginalEnemy = GetComponent<EnemyController>();
             Deactivate();
         }
     }
