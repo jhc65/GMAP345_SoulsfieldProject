@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4421492e413fe7045857b2451a3b307f
-timeCreated: 1520470709
+timeCreated: 1520475238
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -13,12 +13,7 @@ ModelImporter:
     2300000: pCylinder2
     3300000: pCylinder2
     4300000: pCylinder2
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pCylinder2Mat
-    second: {fileID: 2100000, guid: ec75da7b151212f4bb0a18ee5f1d9dc1, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
