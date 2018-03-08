@@ -64,6 +64,8 @@ public class PlayerController2 : MonoBehaviour {
 
     private void Update()
     {
+        if (!t_playerSouls || !t_playerHealth)
+            return;
         t_playerHealth.text = Convert.ToString(health);
         t_playerSouls.text = Convert.ToString(soulsManager.getSouls());
     }
