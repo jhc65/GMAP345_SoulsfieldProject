@@ -253,7 +253,7 @@ public class PlayerController2 : MonoBehaviour {
         while (i < hitColliders.Length)
         {
             if (hitColliders[i].gameObject.CompareTag("Enemy"))
-                hitColliders[i].gameObject.GetComponent<EnemyController>().MoveAway(30, 50);
+                hitColliders[i].gameObject.GetComponent<EnemyController>().MoveAway(20, 30);
             i++;
         }
     }
