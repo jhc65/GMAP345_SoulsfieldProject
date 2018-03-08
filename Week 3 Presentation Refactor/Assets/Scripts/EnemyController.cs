@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-
+    public GameObject deathSmoke;
     private Animator anim;
     private int health = 1;
 
@@ -46,6 +46,10 @@ public class EnemyController : MonoBehaviour
     }
 
     public void Die(bool wasKilled = true) {
+        if (!deathSmoke)
+            print("NULL");
+        Instantiate(deathSmoke, transform.position, Quaternion.identity);
+
         isDead = true; // stop moving towards player and glowing
 
         // Remove capsule collider while death animation plays
@@ -59,6 +63,7 @@ public class EnemyController : MonoBehaviour
         if (isLast) {
             aiManager.OnLastEnemyKilled();
         }
+
     }
 
     // When enemy is hit by sword
