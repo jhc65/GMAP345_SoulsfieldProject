@@ -1191,11 +1191,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathSmoke: {fileID: 1657482011193720, guid: 851ce07e7aa28453d96c81cb6602d2e1, type: 2}
+  ghostBlob: {fileID: 1586624976801054, guid: 4cdad07d7338f4276abaf95aa7c28236, type: 2}
   spawnPos: {x: 0, y: 0, z: 0}
   aiManager: {fileID: 0}
   MovementSpeed: 0
   numSouls: 0
   isLast: 0
+  maxGroupSize: 4
 --- !u!136 &136130337355521596
 CapsuleCollider:
   m_ObjectHideFlags: 1
