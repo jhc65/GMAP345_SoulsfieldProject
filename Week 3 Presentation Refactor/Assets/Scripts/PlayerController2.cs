@@ -59,7 +59,7 @@ public class PlayerController2 : MonoBehaviour {
         pcCamera = Camera.main.gameObject;
         anim = GetComponent<Animator>();
         sword = GameObject.FindGameObjectWithTag("Sword").GetComponent<Collider>();
-        anim.SetFloat("Blend", .32f);
+        anim.SetFloat("Blend", .7f);
     }
 
     private void Update()
