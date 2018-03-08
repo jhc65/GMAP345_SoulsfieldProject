@@ -214,7 +214,7 @@ public class PlayerController2 : MonoBehaviour {
 
             // Play ghost hit effect on desired body parts wtih this script
             foreach (SwapMaterialEffect effect in GetComponentsInChildren<SwapMaterialEffect>())
-                effect.enabled = true;
+                effect.isActive = true;
 
             //if the player is not slowed, set the slowdown timer and change ground speed.
             if (slowdownTimer <= 0)
