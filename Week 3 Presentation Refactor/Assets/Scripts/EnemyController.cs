@@ -43,12 +43,13 @@ public class EnemyController : MonoBehaviour
     {
         if (isDead)
             return;
+        
         if (isMovingTowardsPlayer) {
             currentTarget = player.transform.position;
             transform.LookAt(currentTarget);
             transform.position = Vector3.MoveTowards(transform.position, currentTarget, MovementSpeed * Time.deltaTime);
             transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
-            MoveAway();
+            CheckAndMoveAway();
             OssilateGlow();
         }
 
@@ -96,8 +97,6 @@ public class EnemyController : MonoBehaviour
             rend.material.SetFloat("_RimPower", rp);
             rend.material.SetFloat("_MainTex", rp);
 
-           // rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, rend.material.color.a - (1 * Time.deltaTime));
-
         }
     }
 
@@ -116,16 +115,20 @@ public class EnemyController : MonoBehaviour
         return enemies;
     }
 
-    private void MoveAway() {
+    // Too many enemies nearby. Move away to a random position
+    private void CheckAndMoveAway() {
         if (CountEnemiesNearby(10) >= maxGroupSize) {
-            
-            // Too many enemies nearby. Move away to a random position
+            MoveAway();
+        }
+    }
+
+    // Pick a random point behind ghost and turn into a blob
+    public void MoveAway() {
             Vector3 randomPos = new Vector3(transform.position.x + Random.Range(5, 15), 2, transform.position.z + Random.Range(5, 15));
             GameObject blob = Instantiate(ghostBlob, transform.position, Quaternion.identity);
             blob.GetComponent<BlobController>().GoalPosition = randomPos;
             blob.GetComponent<BlobController>().OriginalEnemy = GetComponent<EnemyController>();
             Deactivate();
-        }
     }
 
     // Move off screen and turn invisible and stop moving towards player

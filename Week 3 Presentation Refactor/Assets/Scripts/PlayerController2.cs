@@ -208,6 +208,7 @@ public class PlayerController2 : MonoBehaviour {
         {
             health--;
             hit.gameObject.GetComponent<EnemyController>().Die(false); // Remove ghost, but player didn't kill it
+            SendAllGhostsNearbyAway(20);
 
             // Play ghost hit effect on desired body parts wtih this script
             foreach (SwapMaterialEffect effect in GetComponentsInChildren<SwapMaterialEffect>())
@@ -225,6 +226,7 @@ public class PlayerController2 : MonoBehaviour {
                 anim.speed = anim.speed * slowMultiplier;
         }
 
+        // TODO: Do this in this scene, just enable another camera and stop movement
         if(health <= 0)
         {
             SceneManager.LoadScene("Scenes/GameOver");
@@ -234,6 +236,17 @@ public class PlayerController2 : MonoBehaviour {
         }
     }
 
+    // Shoo all ghosts away in a radius
+    private void SendAllGhostsNearbyAway(float radius) {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            if (hitColliders[i].gameObject.CompareTag("Enemy"))
+                hitColliders[i].gameObject.GetComponent<EnemyController>().MoveAway();
+            i++;
+        }
+    }
     private void OnCollisionExit(Collision hit)
     {
         if (hit.collider.gameObject == currentGround)
