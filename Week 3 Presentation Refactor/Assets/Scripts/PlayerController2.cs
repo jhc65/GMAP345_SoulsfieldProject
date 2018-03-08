@@ -64,7 +64,7 @@ public class PlayerController2 : MonoBehaviour {
 
     private void Update()
     {
-        if (!t_playerSouls || !t_playerHealth)
+        if (t_playerSouls == null || t_playerHealth == null)
             return;
         t_playerHealth.text = Convert.ToString(health);
         t_playerSouls.text = Convert.ToString(soulsManager.getSouls());
@@ -158,7 +158,7 @@ public class PlayerController2 : MonoBehaviour {
         {
             anim.SetBool("IsJumping", false);
 
-            if (pcRigidbody.velocity.magnitude > .1f) {
+            if (pcRigidbody.velocity.magnitude > .05f) {
                 anim.SetBool("IsWalking", true);
             } else {
                 anim.SetBool("IsWalking", false);
