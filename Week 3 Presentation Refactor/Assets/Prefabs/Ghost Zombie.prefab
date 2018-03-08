@@ -1057,10 +1057,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25c6eba250fb4c8bb7eb67de5979ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathSmoke: {fileID: 1657482011193720, guid: 851ce07e7aa28453d96c81cb6602d2e1, type: 2}
   spawnPos: {x: 0, y: 0, z: 0}
   aiManager: {fileID: 0}
   MovementSpeed: 0
   numSouls: 0
+  isLast: 0
 --- !u!136 &136255117120985066
 CapsuleCollider:
   m_ObjectHideFlags: 1
