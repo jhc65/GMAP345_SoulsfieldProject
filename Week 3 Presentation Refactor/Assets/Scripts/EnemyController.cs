@@ -69,9 +69,8 @@ public class EnemyController : MonoBehaviour
             soulsSphere.GetComponent<SoulsSphere>().numSouls = this.numSouls;
         }
 
-        if (isLast) {
-            aiManager.OnLastEnemyKilled();
-        }
+        aiManager.OnEnemyKilled();
+
 
     }
 
