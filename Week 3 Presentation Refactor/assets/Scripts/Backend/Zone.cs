@@ -8,9 +8,14 @@ using UnityEngine;
  */
 public class Zone {
     public List<Transform> SpawnPointPositions {get; set;}
+    public int ID { get; set; }
 
     public Zone() {
         SpawnPointPositions = new List<Transform>();
+    }
+    public Zone(int i) {
+        SpawnPointPositions = new List<Transform>();
+        ID = i;
     }
 
     public void AddSpawnPoint(Transform t) {

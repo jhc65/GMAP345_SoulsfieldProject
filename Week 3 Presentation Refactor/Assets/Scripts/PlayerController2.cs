@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class PlayerController2 : MonoBehaviour {
 
+    public GameObject hitEffect;
+
     // UI Objects
     [SerializeField]
     private Text t_playerHealth;
@@ -20,7 +22,7 @@ public class PlayerController2 : MonoBehaviour {
     private GameObject pcCamera;
 
     private GameObject currentGround;
-    private int health = 6;
+    private int health = 3;
     private Animator anim;
     private Collider sword;
     
@@ -167,7 +169,6 @@ public class PlayerController2 : MonoBehaviour {
         }
         else
         {
-            
             anim.SetBool("IsWalking", false);
             anim.SetBool("IsJumping", true);
 
@@ -207,12 +208,13 @@ public class PlayerController2 : MonoBehaviour {
         if (hit.gameObject.tag == "Enemy")
         {
             health--;
+            Instantiate(hitEffect, hit.contacts[0].point, Quaternion.identity);
             hit.gameObject.GetComponent<EnemyController>().Die(false); // Remove ghost, but player didn't kill it
-            SendAllGhostsNearbyAway(20);
+            SendAllGhostsNearbyAway(30);
 
             // Play ghost hit effect on desired body parts wtih this script
             foreach (SwapMaterialEffect effect in GetComponentsInChildren<SwapMaterialEffect>())
-                effect.enabled = true;
+                effect.isActive = true;
 
             //if the player is not slowed, set the slowdown timer and change ground speed.
             if (slowdownTimer <= 0)
@@ -229,6 +231,7 @@ public class PlayerController2 : MonoBehaviour {
         // TODO: Do this in this scene, just enable another camera and stop movement
         if(health <= 0)
         {
+            t_playerHealth.text = "0";
             pcCamera.GetComponent<CameraController>().enabled = false;
             pcCamera.GetComponent<GameOverCam>().target = transform.position;
             pcCamera.GetComponent<CameraMoveToPoint>().startPostion = pcCamera.transform.position;
@@ -250,7 +253,7 @@ public class PlayerController2 : MonoBehaviour {
         while (i < hitColliders.Length)
         {
             if (hitColliders[i].gameObject.CompareTag("Enemy"))
-                hitColliders[i].gameObject.GetComponent<EnemyController>().MoveAway();
+                hitColliders[i].gameObject.GetComponent<EnemyController>().MoveAway(20, 30);
             i++;
         }
     }

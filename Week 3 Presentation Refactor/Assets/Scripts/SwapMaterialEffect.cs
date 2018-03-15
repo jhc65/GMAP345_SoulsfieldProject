@@ -6,9 +6,10 @@ public class SwapMaterialEffect : MonoBehaviour
 
     // Ghost material
     public Material ghostM;
-    public float EffectTime = 5f; 
+    public float EffectTime = 5f;
+    public GameObject colorChangeHitEffect;
 
-    public bool enabled;
+    public bool isActive;
 
     // Attached to obj
     private Material initialMat;
@@ -18,26 +19,30 @@ public class SwapMaterialEffect : MonoBehaviour
     // Switch back and forth
     private float timeSinceLast;
     private float elapsedTime;
-    private float switchTime = .3f;
+    private float switchTime = .1f;
     private bool swap;
-
 
     void Start()
     {
         rend = GetComponent<Renderer>();
         initialMat = rend.material;
-        enabled = false;
+        isActive = false;
     }
 
     void Update()
     {
-        if (!enabled)
+        if (!isActive) {
             return;
+        }
+
+        colorChangeHitEffect.GetComponent<ColorEffectOnScreen>().enabled = true;
 
         if (elapsedTime >= EffectTime) {
+            colorChangeHitEffect.GetComponent<ColorEffectOnScreen>().End();
+
             rend.material = initialMat; // Revert back to initial material
             elapsedTime = 0;
-            enabled = false;
+            isActive = false;
             return;
         }
 

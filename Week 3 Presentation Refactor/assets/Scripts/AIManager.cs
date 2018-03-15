@@ -15,6 +15,7 @@ public class AIManager : MonoBehaviour {
 
     // Areas for spawning
     public List<Zone> Zones;
+    public List<Zone> unlockedZones;
 
     // Wave data for spawning
     public List<Wave> Waves;
@@ -27,13 +28,14 @@ public class AIManager : MonoBehaviour {
     [Tooltip("Seperate spawn points by zones. E.g. size of 3 with values of 4 will make first 4 child spawn points zone1, next 4 child spawn points zone2 ..etc")]
     public int[] ZoningSpawnPoints;
 
-    private int HighestZone = 1;
+    private int previousNumZones; 
 
     // For spawning
     private bool readyToSpawn = false;
     private int currentWave = 0;
     private float timeSinceLastSpawn = 0f;
     private int currentEnemy = 0;
+    private int deadEnemyCount = 0;
 
     // Setup zones as dictated by the ZoningSpawnPoints public object
     void InitZones() {
@@ -42,22 +44,35 @@ public class AIManager : MonoBehaviour {
 
         int endingChild = 0; // For keeping track of child spawn points 
         for (int numZone = 0; numZone < ZoningSpawnPoints.Length; numZone++) {
-            Zones.Add(new Zone());
+            Zones.Add(new Zone(numZone));
             for (int j = endingChild; j < endingChild + ZoningSpawnPoints[numZone]; j++) {
                 Zones[numZone].AddSpawnPoint(transform.GetChild(j));
             }
             endingChild += ZoningSpawnPoints[numZone];
         }
+
+        unlockedZones = new List<Zone>();
+        unlockedZones.Add(Zones[0]); // first zone is unlocked at start
     }
 
     // Increase highest zone 
-    public void ActivateNewZone() {
-        HighestZone++;
+    public void ActivateNewZone(int index) {
+        unlockedZones.Add(Zones[index]);
     }
 
-    // Callback for when the last enemy is killed.
+    // Message from the enemy controller when an enemy dies
+    public void OnEnemyKilled()
+    {
+        deadEnemyCount++;
+
+        // Check if this was the last enemy killed
+        if (deadEnemyCount >= Waves[currentWave].TotalToSpawn)
+            OnLastEnemyKilled();
+    }
+
+    // When the last enemy is killed.
     // Start spawning next wave
-    public void OnLastEnemyKilled() {
+    private void OnLastEnemyKilled() {
         readyToSpawn = false;
         currentWave++;
         InitEnemies();
@@ -87,7 +102,7 @@ public class AIManager : MonoBehaviour {
         InitEnemies();
 
         // Start spawning
-        StartCoroutine(TimeBetweenWaves(0));
+        StartCoroutine(TimeBetweenWaves(1));
     }
 
     // Instantiate all enemies and set to inactive
@@ -115,10 +130,10 @@ public class AIManager : MonoBehaviour {
             float ms = Random.Range(w.SlowestMS, w.FastestMS);
 
             // Pick random spawn point from a random zone (that have been unlocked)
-            int randomZone = Random.Range(0, HighestZone);
-            int randomPoint = Random.Range(0, Zones[randomZone].SpawnPointPositions.Count);
+            int randomZone = Random.Range(0, unlockedZones.Count);
+            int randomPoint = Random.Range(0, unlockedZones[randomZone].SpawnPointPositions.Count);
 
-            Transform spawnPos = Zones[randomZone].SpawnPointPositions[randomPoint];
+            Transform spawnPos = unlockedZones[randomZone].SpawnPointPositions[randomPoint];
 
             // Instantiate enemy obj and set its ms and other data
             enemyObjPool.Add(Instantiate(enemyPrefab, spawnPos.position, Quaternion.identity));
@@ -128,11 +143,9 @@ public class AIManager : MonoBehaviour {
             enemyScriptPool[numSpawned].spawnPos = spawnPos.position;
             enemyScriptPool[numSpawned].aiManager = GetComponent<AIManager>();
             enemyObjPool[numSpawned].SetActive(false); // set inactive
+            previousNumZones = unlockedZones.Count;
             numSpawned++;
         }
-
-        // Set callback for last enemy to later end the round
-        enemyScriptPool[numSpawned - 1].isLast = true; 
 
         // Set soul
         Dictionary<int, int> enemiesWithSouls = new Dictionary<int, int>();
@@ -153,33 +166,48 @@ public class AIManager : MonoBehaviour {
 
     // Spawn enemies one by one
     void Update() {
-        if (t_roundCount)
-            t_roundCount.text = System.Convert.ToString(currentWave);
 
         if (!readyToSpawn)
             return;
+        
+        if (t_roundCount)
+            t_roundCount.text = System.Convert.ToString(currentWave);
 
+        if (Input.GetKeyDown(KeyCode.F))
+            ActivateNewZone(1);
+        
         Wave w = Waves[currentWave];
 
-        if (timeSinceLastSpawn < w.SpawnFrequency && currentEnemy > 0) {
+        if (timeSinceLastSpawn < w.SpawnFrequency && currentEnemy > 0)
+        {
             timeSinceLastSpawn += Time.deltaTime;
             return;
-        } else { // Time to spawn if chance is met
+        }
+        else
+        { // Time to spawn if chance is met
             float randomChance = Random.Range(0, 1);
-            if (randomChance <= w.ChanceOfSpawn) {
+            if (randomChance <= w.ChanceOfSpawn)
+            {
                 enemyObjPool[currentEnemy].SetActive(true);
                 currentEnemy++;
 
                 // Last enemy was created
-                if (currentEnemy >= w.TotalToSpawn) {
-
+                if (currentEnemy >= w.TotalToSpawn)
+                {
                     // Reset
                     readyToSpawn = false;
                     return;
                 }
-            }
-            timeSinceLastSpawn = 0f;
-        }
-    }
 
+                // A new zone has been unlocked since this enemy was created. Update spawn point
+                if (previousNumZones < unlockedZones.Count)
+                {
+                    int randomZone = Random.Range(0, unlockedZones.Count);
+                    int randomPoint = Random.Range(0, unlockedZones[randomZone].SpawnPointPositions.Count);
+                    enemyObjPool[currentEnemy].transform.position = unlockedZones[randomZone].SpawnPointPositions[randomPoint].position;
+                }
+            }
+        }
+        timeSinceLastSpawn = 0f;
+    }
 }

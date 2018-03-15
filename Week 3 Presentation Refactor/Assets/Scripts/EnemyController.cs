@@ -69,9 +69,8 @@ public class EnemyController : MonoBehaviour
             soulsSphere.GetComponent<SoulsSphere>().numSouls = this.numSouls;
         }
 
-        if (isLast) {
-            aiManager.OnLastEnemyKilled();
-        }
+        aiManager.OnEnemyKilled();
+
 
     }
 
@@ -123,8 +122,8 @@ public class EnemyController : MonoBehaviour
     }
 
     // Pick a random point behind ghost and turn into a blob
-    public void MoveAway() {
-            Vector3 randomPos = new Vector3(transform.position.x + Random.Range(5, 15), 2, transform.position.z + Random.Range(5, 15));
+    public void MoveAway(float min = 5f, float max = 15f) {
+            Vector3 randomPos = new Vector3(transform.position.x + Random.Range(min, max), 2, transform.position.z + Random.Range(min, max));
             GameObject blob = Instantiate(ghostBlob, transform.position, Quaternion.identity);
             blob.GetComponent<BlobController>().GoalPosition = randomPos;
             blob.GetComponent<BlobController>().OriginalEnemy = GetComponent<EnemyController>();
