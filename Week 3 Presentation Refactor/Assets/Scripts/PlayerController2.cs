@@ -74,6 +74,7 @@ public class PlayerController2 : MonoBehaviour {
 
     // Update is called once per frame
     void LateUpdate () {
+
         if (Input.GetMouseButton(0))
         {
             anim.SetBool("attack", true);
@@ -183,7 +184,6 @@ public class PlayerController2 : MonoBehaviour {
 
 
     //Collision Detection
-
     private void OnCollisionStay(Collision hit)
     {
         ContactPoint contact = hit.contacts[0];

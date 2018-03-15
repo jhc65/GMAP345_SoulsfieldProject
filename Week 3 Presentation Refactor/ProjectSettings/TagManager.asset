@@ -8,6 +8,8 @@ TagManager:
   - Sword
   - soulsSphere
   - IgnoreGlow
+  - Door
+  - UnlockZone
   layers:
   - Default
   - TransparentFX

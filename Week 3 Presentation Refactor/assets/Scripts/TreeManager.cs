@@ -29,6 +29,8 @@ public class TreeManager : MonoBehaviour {
         material = GetComponent<Renderer>().material;
         fadeOut = false;
         close = false;
+        GetComponentInChildren<UIPlayerUnlockCollision>().soulsNeededText = soulsRequired.ToString() + " souls needed to clear";
+
     }
 	
 	void Update () {
@@ -58,7 +60,8 @@ public class TreeManager : MonoBehaviour {
                 UnityEditor.EditorApplication.isPlaying = false;
             }
             a.ActivateNewZone(LeadsToZone);
-            
+            GetComponentInChildren<UIPlayerUnlockCollision>().Disable();
+
             enabled = false;
         }
 	}

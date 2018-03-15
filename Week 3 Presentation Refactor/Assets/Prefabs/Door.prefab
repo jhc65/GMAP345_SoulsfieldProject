@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114596726273322792}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,9 +51,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1742134811302508}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.57, y: 3.01, z: -0.69}
-  m_LocalScale: {x: 5.1635976, y: 5.3396106, z: 0.70990103}
+  m_LocalRotation: {x: -0, y: -0.27340454, z: 0, w: 0.96189916}
+  m_LocalPosition: {x: 49.69784, y: 9.958959, z: -156.87727}
+  m_LocalScale: {x: 18.121521, y: 16.828154, z: 2.2373023}
   m_Children:
   - {fileID: 4533700650468548}
   m_Father: {fileID: 0}
@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 260dbab2f22480647ad1a3ee1ed4a2ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -136,6 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf66ed62478ca0e439a137ca76d3f1a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeadsToZone: 1
   soulsRequired: 2
+  a: {fileID: 0}
   distance: 5
   movementAngle: -90

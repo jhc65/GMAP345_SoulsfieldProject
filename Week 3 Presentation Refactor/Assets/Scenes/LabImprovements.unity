@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.835
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1832038907}
-  m_IndirectSpecularColor: {r: 0.098177455, g: 0.09565162, b: 0.10863633, a: 0.835}
+  m_IndirectSpecularColor: {r: 0.09830228, g: 0.09572924, b: 0.10874025, a: 0.835}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -7755,6 +7755,7 @@ GameObject:
   - component: {fileID: 1104572345}
   - component: {fileID: 1104572343}
   - component: {fileID: 1104572344}
+  - component: {fileID: 1104572346}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7880,6 +7881,17 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   startPostion: {x: 0, y: 0, z: 0}
   duration: 30
+--- !u!114 &1104572346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1104572337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a0a84b7eb7249e6b260a31e464e1b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1109075513
 Prefab:
   m_ObjectHideFlags: 0
@@ -9135,6 +9147,16 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.radiusThickness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
         type: 2}
@@ -13616,6 +13638,16 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.radiusThickness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
         type: 2}

@@ -19,6 +19,7 @@ public class DoorManager : MonoBehaviour {
         pivot = transform.GetChild(0).position;
         player = GameObject.FindGameObjectWithTag("Player");
         soulsManager = player.GetComponent<SoulsManager>();
+        GetComponentInChildren<UIPlayerUnlockCollision>().soulsNeededText = soulsRequired.ToString() + " souls needed to unlock";
     }
 	
 	void Update () {
@@ -36,6 +37,8 @@ public class DoorManager : MonoBehaviour {
                 }
                     
                 a.ActivateNewZone(LeadsToZone);
+                GetComponentInChildren<UIPlayerUnlockCollision>().Disable();
+
                 enabled = false;
             }
         }
