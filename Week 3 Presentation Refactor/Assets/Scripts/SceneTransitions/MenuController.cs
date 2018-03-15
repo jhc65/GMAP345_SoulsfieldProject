@@ -15,6 +15,11 @@ public class MenuController : MonoBehaviour
 	}
 
     public void OnStart() {
-        SceneManager.LoadScene("Final");
+        SceneManager.LoadScene("Scenes/Final");
     }
+
+	public void OnQuit()
+	{
+        Application.Quit();
+	}
 }
