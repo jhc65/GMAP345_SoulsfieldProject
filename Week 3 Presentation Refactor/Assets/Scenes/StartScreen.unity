@@ -6862,6 +6862,21 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b129b6c9c522244d85604e09d8ca26c, type: 2}
   m_IsPrefabParent: 0
@@ -7395,6 +7410,36 @@ Prefab:
     - target: {fileID: 4000011153565014, guid: 9faa7cdcea949d24ab77ca08f27b5426, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012713707730, guid: 9faa7cdcea949d24ab77ca08f27b5426,
+        type: 2}
+      propertyPath: randomSeed
+      value: -66132818
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012713707730, guid: 9faa7cdcea949d24ab77ca08f27b5426,
+        type: 2}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012713707730, guid: 9faa7cdcea949d24ab77ca08f27b5426,
+        type: 2}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012713707730, guid: 9faa7cdcea949d24ab77ca08f27b5426,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.63235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012713707730, guid: 9faa7cdcea949d24ab77ca08f27b5426,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.11018082
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012713707730, guid: 9faa7cdcea949d24ab77ca08f27b5426,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.08369378
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9faa7cdcea949d24ab77ca08f27b5426, type: 2}
@@ -10520,6 +10565,21 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.radiusThickness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198346741849776280, guid: 3b129b6c9c522244d85604e09d8ca26c,
         type: 2}
