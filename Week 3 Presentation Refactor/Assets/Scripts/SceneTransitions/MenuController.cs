@@ -22,4 +22,11 @@ public class MenuController : MonoBehaviour
 	{
         Application.Quit();
 	}
+
+    public void OnMenu() {
+        SceneManager.LoadScene("Scenes/StartScreen");
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 }

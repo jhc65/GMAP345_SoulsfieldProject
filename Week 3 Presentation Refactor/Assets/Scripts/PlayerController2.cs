@@ -22,7 +22,7 @@ public class PlayerController2 : MonoBehaviour {
     private GameObject pcCamera;
 
     private GameObject currentGround;
-    private int health = 6;
+    private int health = 3;
     private Animator anim;
     private Collider sword;
     
