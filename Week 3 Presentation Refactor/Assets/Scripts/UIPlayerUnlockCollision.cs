@@ -38,6 +38,7 @@ public class UIPlayerUnlockCollision : MonoBehaviour {
 	public void Disable()
 	{
         isEnabled = false;
+        soulsText.enabled = false;
         Destroy(this.gameObject);
 	}
 }
