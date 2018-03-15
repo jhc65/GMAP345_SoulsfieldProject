@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DoorManager : MonoBehaviour {
 
+    [Header("MUST SET IN INSPECTOR!")]
+    public int LeadsToZone;
     public int soulsRequired;
     public AIManager a;
 
@@ -28,7 +30,12 @@ public class DoorManager : MonoBehaviour {
             {
                 transform.RotateAround(pivot, Vector3.up, movementAngle);
                 soulsManager.numSouls -= soulsRequired;
-                a.ActivateNewZone();
+                if (LeadsToZone <= 0) {
+                    Debug.LogError("Door manager lead to zone must be set in inspector!!!!!!!!!!!");
+                    UnityEditor.EditorApplication.isPlaying = false;
+                }
+                    
+                a.ActivateNewZone(LeadsToZone);
                 enabled = false;
             }
         }
