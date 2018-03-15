@@ -131,9 +131,9 @@ public class AIManager : MonoBehaviour {
 
             // Pick random spawn point from a random zone (that have been unlocked)
             int randomZone = Random.Range(0, unlockedZones.Count);
-            int randomPoint = Random.Range(0, Zones[randomZone].SpawnPointPositions.Count);
+            int randomPoint = Random.Range(0, unlockedZones[randomZone].SpawnPointPositions.Count);
 
-            Transform spawnPos = Zones[randomZone].SpawnPointPositions[randomPoint];
+            Transform spawnPos = unlockedZones[randomZone].SpawnPointPositions[randomPoint];
 
             // Instantiate enemy obj and set its ms and other data
             enemyObjPool.Add(Instantiate(enemyPrefab, spawnPos.position, Quaternion.identity));
@@ -188,14 +188,12 @@ public class AIManager : MonoBehaviour {
             float randomChance = Random.Range(0, 1);
             if (randomChance <= w.ChanceOfSpawn)
             {
-                print("Spawning " + currentEnemy);
                 enemyObjPool[currentEnemy].SetActive(true);
                 currentEnemy++;
 
                 // Last enemy was created
                 if (currentEnemy >= w.TotalToSpawn)
                 {
-
                     // Reset
                     readyToSpawn = false;
                     return;
@@ -206,10 +204,8 @@ public class AIManager : MonoBehaviour {
                 {
                     int randomZone = Random.Range(0, unlockedZones.Count);
                     int randomPoint = Random.Range(0, unlockedZones[randomZone].SpawnPointPositions.Count);
-                    enemyObjPool[currentEnemy].transform.position = Zones[randomZone].SpawnPointPositions[randomPoint].position;
+                    enemyObjPool[currentEnemy].transform.position = unlockedZones[randomZone].SpawnPointPositions[randomPoint].position;
                 }
-
-
             }
         }
         timeSinceLastSpawn = 0f;
