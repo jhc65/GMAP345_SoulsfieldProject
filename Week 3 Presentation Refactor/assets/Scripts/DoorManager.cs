@@ -32,8 +32,7 @@ public class DoorManager : MonoBehaviour {
                 transform.RotateAround(pivot, Vector3.up, movementAngle);
                 soulsManager.numSouls -= soulsRequired;
                 if (LeadsToZone <= 0) {
-                    Debug.LogError("Door manager lead to zone must be set in inspector!!!!!!!!!!!");
-                    UnityEditor.EditorApplication.isPlaying = false;
+                    print("not set. bad");
                 }
                     
                 a.ActivateNewZone(LeadsToZone);

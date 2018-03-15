@@ -34,6 +34,7 @@ public class TreeManager : MonoBehaviour {
     }
 	
 	void Update () {
+
         if (close && !fadeOut)
         {
             if(Input.GetKeyDown(KeyCode.E) && soulsManager.getSouls() >= soulsRequired)
@@ -56,11 +57,12 @@ public class TreeManager : MonoBehaviour {
         {
             if (LeadsToZone <= 0)
             {
-                Debug.LogError("Tree manager lead to zone must be set in inspector!!!!!!!!!!!");
-                UnityEditor.EditorApplication.isPlaying = false;
+                print("not set. bad");
+
             }
             a.ActivateNewZone(LeadsToZone);
             GetComponentInChildren<UIPlayerUnlockCollision>().Disable();
+            GetComponentInChildren<UIPlayerUnlockCollision>().enabled = false;
 
             enabled = false;
         }

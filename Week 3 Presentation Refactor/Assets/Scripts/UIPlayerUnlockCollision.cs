@@ -38,5 +38,6 @@ public class UIPlayerUnlockCollision : MonoBehaviour {
 	public void Disable()
 	{
         isEnabled = false;
+        Destroy(this.gameObject);
 	}
 }
