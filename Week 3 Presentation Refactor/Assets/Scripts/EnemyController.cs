@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     
     public GameObject deathSmoke;
     public GameObject ghostBlob;
+    public GameObject deathSmokeBigger;
 
     private Animator anim;
     private int health = 1;
@@ -63,7 +64,12 @@ public class EnemyController : MonoBehaviour
 
         // Remove capsule collider while death animation plays
         GetComponent<CapsuleCollider>().enabled = false;
-        anim.SetInteger("DeathValue", Random.Range(0,2)); // Play a random animation
+        if (wasKilled)
+            anim.SetInteger("DeathValue", Random.Range(0, 2)); // Play a random animation
+        else {
+            Instantiate(deathSmokeBigger, transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
+        }
         if (numSouls > 0 && wasKilled) {
             GameObject soulsSphere = Instantiate(Resources.Load("SoulsSphere"), transform.position, transform.rotation) as GameObject;
             soulsSphere.GetComponent<SoulsSphere>().numSouls = this.numSouls;

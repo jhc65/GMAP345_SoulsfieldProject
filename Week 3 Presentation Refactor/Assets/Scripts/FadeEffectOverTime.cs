@@ -11,20 +11,26 @@ public class FadeEffectOverTime : MonoBehaviour {
     private float t = 0;
 
     private Image background;
-
+    private AudioSource aud;
+    private List<AudioSource> usedAudios = new List<AudioSource>();
     void Start()
     {
-        background = GetComponent<Image>();
-        background.enabled = true;
-        color1 = background.color;
-
+        OnEnable();
     }
 
 	private void OnEnable()
 	{
+        foreach (AudioSource a in FindObjectsOfType<AudioSource>() as AudioSource[]) {
+            usedAudios.Add(a);
+            a.volume = .2f;
+        }
+        aud = GetComponent<AudioSource>();
+        aud.volume = 1f;
+        aud.Play();
         background = GetComponent<Image>();
         background.enabled = true;
         color1 = background.color;
+
 	}
 
 	void Update()
@@ -40,6 +46,11 @@ public class FadeEffectOverTime : MonoBehaviour {
             End();
     }
     public void End() {
+        
+        foreach (AudioSource a in usedAudios) {
+            if (a)
+                a.volume = 1; // restore volume
+        }
         t = 0;
         background.color = color1;
         background.enabled = false;

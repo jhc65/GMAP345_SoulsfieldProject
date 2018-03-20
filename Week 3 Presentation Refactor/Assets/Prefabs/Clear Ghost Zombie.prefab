@@ -883,7 +883,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1723721739307494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.967783, y: 0.17027187, z: 30.869253}
+  m_LocalPosition: {x: 4.1761017, y: 0.17027187, z: 12.060694}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4384895884374126}
@@ -1258,6 +1258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathSmoke: {fileID: 1657482011193720, guid: 851ce07e7aa28453d96c81cb6602d2e1, type: 2}
   ghostBlob: {fileID: 1586624976801054, guid: 4cdad07d7338f4276abaf95aa7c28236, type: 2}
+  deathSmokeBigger: {fileID: 1209784264679782, guid: 71b27668e785f497c880bebefa1f5cf4,
+    type: 2}
   spawnPos: {x: 0, y: 0, z: 0}
   aiManager: {fileID: 0}
   MovementSpeed: 0
@@ -1872,7 +1874,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1595781563
+  randomSeed: 145291234
   InitialModule:
     serializedVersion: 3
     enabled: 1
