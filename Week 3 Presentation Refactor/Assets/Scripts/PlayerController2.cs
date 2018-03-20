@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class PlayerController2 : MonoBehaviour {
 
     public GameObject hitEffect;
+    public GameObject bloodEffect;
 
     // UI Objects
     [SerializeField]
@@ -208,6 +209,7 @@ public class PlayerController2 : MonoBehaviour {
         if (hit.gameObject.tag == "Enemy")
         {
             health--;
+            bloodEffect.GetComponent<FadeEffectOverTime>().enabled = true;
             Instantiate(hitEffect, hit.contacts[0].point, Quaternion.identity);
             hit.gameObject.GetComponent<EnemyController>().Die(false); // Remove ghost, but player didn't kill it
             SendAllGhostsNearbyAway(30);
